@@ -1,0 +1,360 @@
+.main {
+  background-color: var(--color-background);
+  min-height: 100vh;
+}
+
+/* 1. Hero Section */
+.heroSection {
+  padding: 3rem 0;
+  background-color: var(--color-background);
+}
+
+@media (min-width: 768px) {
+  .heroSection {
+    padding: 6rem 0;
+  }
+}
+
+.heroContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .heroContainer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+}
+
+.heroContent {
+  flex: 1;
+  max-width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .heroContent {
+    max-width: 600px;
+  }
+}
+
+.heroLabel {
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .heroLabel {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.heroTitleHighlight {
+  color: var(--color-accent);
+}
+
+.heroDesc {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .heroDesc {
+    font-size: 1.125rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.heroButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 480px) {
+  .heroButtons {
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
+
+.btnLightGray {
+  background-color: var(--color-surface-light);
+  color: var(--color-text-main);
+  border: 1px solid transparent;
+}
+
+.btnLightGray:hover {
+  background-color: #E5E7EB;
+}
+
+.heroGraphic {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.graphicBlock {
+  width: 100%;
+  max-width: 350px;
+  aspect-ratio: 4/5;
+  background-color: rgba(201, 162, 39, 0.08);
+  border-radius: var(--radius-lg);
+  background-image: url('/images/global_trade_hero.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .graphicBlock {
+    max-width: 450px;
+    border-radius: var(--radius-xl);
+  }
+}
+
+.graphicBlock::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  background: white;
+  opacity: 0.6;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+
+/* 3. Capabilities Section */
+.capabilitiesSection {
+  background-color: var(--color-surface-light);
+  padding: var(--spacing-lg) 0 var(--spacing-xl);
+}
+
+.capabilitiesHeader {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+@media (min-width: 768px) {
+  .capabilitiesHeader {
+    margin: 0 auto 3rem;
+  }
+}
+
+.capabilitiesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .capabilitiesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .capabilitiesGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+.capCard {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .capCard {
+    padding: 2.5rem;
+  }
+}
+
+.capIcon {
+  width: 44px;
+  height: 44px;
+  background-color: rgba(201, 162, 39, 0.1);
+  color: var(--color-accent);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .capIcon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.capTitle {
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .capTitle {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.capDesc {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .capDesc {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.capList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .capList {
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.capList li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-main);
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .capList li {
+    gap: 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+.checkIcon {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.learnMoreLink {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .learnMoreLink {
+    font-size: 0.875rem;
+  }
+}
+
+.learnMoreLink:hover {
+  text-decoration: underline;
+}
+
+/* 4. Banner Section */
+.blueBanner {
+  background-color: var(--color-primary);
+  padding: var(--spacing-lg) 0;
+  color: white;
+}
+
+.bannerContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .bannerContainer {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+.bannerStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .bannerStat {
+    gap: 0.5rem;
+  }
+}
+
+.bannerNumber {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+}
+
+.bannerPlus {
+  font-weight: 400;
+}
+
+.bannerLabel {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.8);
+}
+
+@media (min-width: 768px) {
+  .bannerLabel {
+    font-size: 0.75rem;
+  }
+}

@@ -1,0 +1,360 @@
+.main {
+  background-color: var(--color-background);
+  min-height: 100vh;
+}
+
+/* 1. Hero Section */
+.heroSection {
+  background-image: linear-gradient(135deg, rgba(11, 31, 63, 0.92) 0%, rgba(11, 31, 63, 0.7) 100%), url('/images/about/hero.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .heroSection {
+    padding: 8rem 0;
+  }
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heroLabel {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .heroLabel {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.heroTitleHighlight {
+  color: var(--color-accent);
+}
+
+.heroDesc {
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .heroDesc {
+    font-size: 1.125rem;
+    max-width: none;
+  }
+}
+
+/* 2. Values Section */
+.valuesSection {
+  background-color: var(--color-background);
+  padding: var(--spacing-xl) 0;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .sectionHeader {
+    margin: 0 auto 4rem;
+  }
+}
+
+.sectionTitle {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  color: var(--color-text-main);
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .sectionTitle {
+    margin-bottom: 1rem;
+  }
+}
+
+.sectionDesc {
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 768px) {
+  .sectionDesc {
+    font-size: 1.125rem;
+  }
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .valuesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .valuesGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+.valueCard {
+  background-color: var(--color-surface-light);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal);
+  border: 1px solid var(--color-border);
+}
+
+@media (min-width: 768px) {
+  .valueCard {
+    padding: 2.5rem;
+  }
+}
+
+.valueCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(201, 162, 39, 0.3);
+}
+
+.valueIcon {
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-accent);
+  color: white;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 10px 15px -3px rgba(201, 162, 39, 0.3);
+}
+
+@media (min-width: 768px) {
+  .valueIcon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.valueTitle {
+  font-size: 1.125rem;
+  color: var(--color-text-main);
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .valueTitle {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.valueDesc {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  font-size: 0.875rem;
+}
+
+/* 3. Team Placeholder Section */
+.teamSection {
+  background-color: white;
+  padding: var(--spacing-xl) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.teamContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .teamContainer {
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
+  }
+}
+
+.teamText {
+  flex: 1;
+  max-width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .teamText {
+    max-width: 550px;
+  }
+}
+
+.teamDesc {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .teamDesc {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.teamGraphics {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.teamGraphicBlock {
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 4/3;
+  background-color: var(--color-surface-light);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .teamGraphicBlock {
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+  }
+}
+
+.peopleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .peopleGrid {
+    gap: 1.5rem;
+  }
+}
+
+.personCircle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #E5E7EB;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .personCircle {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Real headshots for 'people' */
+.personCircle:nth-child(1) { background-image: url('/images/about/team_1.png'); background-size: cover; background-position: center; }
+.personCircle:nth-child(2) { background-image: url('/images/about/team_2.png'); background-size: cover; background-position: center; }
+.personCircle:nth-child(3) { background-image: url('/images/about/team_3.png'); background-size: cover; background-position: center; }
+.personCircle:nth-child(4) { background-image: url('/images/about/team_4.png'); background-size: cover; background-position: center; }
+.personCircle:nth-child(5) { background-image: url('/images/about/team_5.png'); background-size: cover; background-position: center; }
+.personCircle:nth-child(6) { background-image: url('/images/about/team_6.png'); background-size: cover; background-position: center; }
+
+/* 4. Reach Summary */
+.reachSection {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-background);
+}
+
+.reachBanner {
+  background-color: var(--color-surface-dark);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: var(--shadow-lg);
+}
+
+@media (min-width: 768px) {
+  .reachBanner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem;
+    border-radius: var(--radius-xl);
+    gap: 2rem;
+  }
+}
+
+.reachContent {
+  flex: 1;
+  max-width: 600px;
+}
+
+.reachContent h2 {
+  color: white;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .reachContent h2 {
+    margin-bottom: 1rem;
+  }
+}
+
+.reachContent p {
+  color: #708090;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .reachContent p {
+    font-size: 1.125rem;
+  }
+}
+
+.reachAction {
+  flex-shrink: 0;
+}

@@ -1,26 +1,219 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand Identity Color Palette */
+  --color-primary: #0B1F3F; /* Ocean Navy — core identity, typography, dark backgrounds */
+  --color-primary-hover: #0E2A52;
+  --color-accent: #C9A227; /* Silk Gold — CTAs, highlights, interactive elements */
+  --color-accent-hover: #B08D1F;
+  --color-secondary: #0B1F3F;
+  
+  --color-background: #ffffff;
+  --color-surface-light: #F8F3F1; /* Alabaster White */
+  --color-surface-dark: #0B1F3F; /* Ocean Navy for footer & dark sections */
+  
+  --color-text-main: #0B1F3F; /* Ocean Navy for main text */
+  --color-text-muted: #708090; /* Steel Grey for secondary text */
+  --color-text-light: #F8F3F1; /* Alabaster White for text on dark backgrounds */
+  
+  --color-border: #e5e7eb;
+  
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-main);
+  font-family: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Reduce spacing on mobile */
+@media (max-width: 767px) {
+  :root {
+    --spacing-lg: 2.5rem;
+    --spacing-xl: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: transparent;
+}
+
+input, textarea {
+  font-family: inherit;
+}
+
+/* Base Utility Classes for Layout */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+.section {
+  padding: var(--spacing-lg) 0;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--spacing-xl) 0;
+  }
+}
+
+/* Typography Utilities */
+.text-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+.text-label.blue-bg {
+  background-color: rgba(201, 162, 39, 0.12);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+/* Form Elements */
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: white;
+  color: var(--color-text-main);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input-field:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+}
+
+/* Button Component Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+}
+
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-dark {
+  background-color: var(--color-surface-dark);
+  color: white;
+}
+
+.btn-dark:hover {
+  background-color: #07142A;
+}
+
+.btn-white {
+  background-color: white;
+  color: var(--color-accent);
+}
+
+.btn-white:hover {
+  background-color: var(--color-surface-light);
+}
+
+.btn-icon {
+  margin-left: 0.5rem;
+  display: inline-flex;
 }
