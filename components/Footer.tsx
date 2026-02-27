@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Globe, Linkedin, Twitter } from "lucide-react";
+import { Linkedin, Twitter } from "lucide-react";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -15,7 +15,11 @@ export default function Footer() {
         <div className={styles.footerBrand}>
           <Link href="/" className={styles.logo}>
             <div className={styles.logoIcon}>
-              <Globe size={24} strokeWidth={2} />
+              <img 
+                src="/logo.jpeg" 
+                alt="Bluenture LLP Logo" 
+                style={{ width: '100%', height: '100%', borderRadius: '4px', objectFit: 'contain' }}
+              />
             </div>
             BLUENTURE <span>LLP</span>
           </Link>

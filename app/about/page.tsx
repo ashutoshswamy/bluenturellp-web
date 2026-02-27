@@ -7,7 +7,7 @@ import { StaggerContainer, StaggerItem } from '@/components/animations/Stagger';
 
 export default function About() {
   return (
-    <div className={styles.main}>
+    <div className={`${styles.main} networkSection-light`}>
       {/* 1. Hero / Mission Section */}
       <section className={styles.heroSection}>
         <div className={`container ${styles.heroContainer}`}>
@@ -21,6 +21,9 @@ export default function About() {
               Founded on the principles of integrity and operational excellence, Bluenture LLP has evolved into a premier international trade organization. We specialize in the seamless distribution of high-value commodities worldwide.
             </p>
           </SlideUpAnim>
+          <FadeInAnim className={styles.heroGraphic} delay={0.2}>
+            <div className={styles.graphicBlock}></div>
+          </FadeInAnim>
         </div>
       </section>
 

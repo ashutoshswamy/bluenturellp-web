@@ -57,6 +57,7 @@
   line-height: 1.1;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
+  color: var(--color-primary);
 }
 
 @media (min-width: 768px) {
@@ -71,7 +72,7 @@
 
 .heroDesc {
   font-size: 0.9375rem;
-  color: var(--color-text-muted);
+  color: var(--color-text-main);
   line-height: 1.6;
   margin-bottom: 2rem;
 }
@@ -133,19 +134,7 @@
   }
 }
 
-.graphicBlock::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60%;
-  height: 60%;
-  background: white;
-  opacity: 0.6;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-}
+
 
 
 /* 3. Capabilities Section */

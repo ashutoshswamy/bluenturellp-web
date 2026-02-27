@@ -1,5 +1,5 @@
 import styles from './page.module.css';
-import { Send, Building2, Package, MapPin, Anchor } from 'lucide-react';
+import { Send, Building2, Package, MapPin, Anchor, Mail, Phone } from 'lucide-react';
 import { SlideUp as SlideUpAnim } from '@/components/animations/SlideUp';
 
 export default function Quote() {
@@ -60,6 +60,24 @@ export default function Quote() {
                   <div className={styles.inputWrapper}>
                     <Building2 className={styles.inputIcon} />
                     <input type="text" placeholder="e.g. Global Trade Corp" className={styles.input} />
+                  </div>
+                </div>
+
+                <div className={styles.formRow}>
+                  <div className={styles.formGroup}>
+                    <label>Email Address</label>
+                    <div className={styles.inputWrapper}>
+                      <Mail className={styles.inputIcon} />
+                      <input type="email" placeholder="you@company.com" className={styles.input} />
+                    </div>
+                  </div>
+                  
+                  <div className={styles.formGroup}>
+                    <label>Contact Number</label>
+                    <div className={styles.inputWrapper}>
+                      <Phone className={styles.inputIcon} />
+                      <input type="tel" placeholder="+1 (555) 000-0000" className={styles.input} />
+                    </div>
                   </div>
                 </div>
 
@@ -166,6 +184,7 @@ export default function Quote() {
     </div>
   );
 }
+
 
 // Simple icons since Lucide's Globe/CheckCircle have style clashes sometimes
 function GlobeIcon(props: any) {

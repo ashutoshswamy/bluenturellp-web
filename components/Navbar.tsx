@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Globe, Search } from "lucide-react";
+
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
@@ -32,7 +32,11 @@ export default function Navbar() {
         <div className={styles.leftSection}>
           <Link href="/" className={styles.logo}>
             <div className={styles.logoIcon}>
-              <Globe size={24} strokeWidth={2} />
+              <img 
+                src="/logo.jpeg" 
+                alt="Bluenture LLP Logo" 
+                style={{ width: '100%', height: '100%', borderRadius: '4px', objectFit: 'contain' }}
+              />
             </div>
             BLUENTURE <span>LLP</span>
           </Link>
@@ -48,14 +52,7 @@ export default function Navbar() {
         </div>
 
         <div className={styles.rightSection}>
-          <div className={styles.searchBarContainer}>
-            <Search className={styles.searchIcon} size={16} strokeWidth={2} />
-            <input 
-              type="text" 
-              placeholder="Search commodities..." 
-              className={styles.searchInput}
-            />
-          </div>
+
           <Link href="/quote" className="btn btn-primary">Get a Quote</Link>
 
           {/* Mobile menu button */}

@@ -5,27 +5,43 @@
 
 /* 1. Hero Section */
 .heroSection {
-  background-image: linear-gradient(135deg, rgba(11, 31, 63, 0.92) 0%, rgba(11, 31, 63, 0.7) 100%), url('/images/about/hero.png');
-  background-size: cover;
-  background-position: center;
-  color: white;
-  padding: 4rem 0;
-  text-align: center;
+  padding: 3rem 0;
+  background-color: var(--color-background);
 }
 
 @media (min-width: 768px) {
   .heroSection {
-    padding: 8rem 0;
+    padding: 6rem 0;
+  }
+}
+
+.heroContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .heroContainer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
   }
 }
 
 .heroContent {
-  max-width: 800px;
-  margin: 0 auto;
+  flex: 1;
+  max-width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .heroContent {
+    max-width: 600px;
+  }
 }
 
 .heroLabel {
-  display: inline-block;
   margin-bottom: 1rem;
 }
 
@@ -41,6 +57,7 @@
   line-height: 1.1;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
+  color: var(--color-primary);
 }
 
 @media (min-width: 768px) {
@@ -55,18 +72,46 @@
 
 .heroDesc {
   font-size: 0.9375rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-main);
   line-height: 1.6;
-  max-width: 600px;
-  margin: 0 auto;
+  margin-bottom: 2rem;
 }
 
 @media (min-width: 768px) {
   .heroDesc {
     font-size: 1.125rem;
-    max-width: none;
+    margin-bottom: 2.5rem;
   }
 }
+
+.heroGraphic {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.graphicBlock {
+  width: 100%;
+  max-width: 350px;
+  aspect-ratio: 4/5;
+  background-color: rgba(201, 162, 39, 0.08);
+  border-radius: var(--radius-lg);
+  background-image: url('/images/about/hero.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .graphicBlock {
+    max-width: 450px;
+    border-radius: var(--radius-xl);
+  }
+}
+
+
 
 /* 2. Values Section */
 .valuesSection {

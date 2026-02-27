@@ -7,7 +7,7 @@ import { StaggerContainer, StaggerItem } from '@/components/animations/Stagger';
 
 export default function Logistics() {
   return (
-    <div className={styles.main}>
+    <div className={`${styles.main} logisticsSection-light`}>
       {/* 1. Hero Section */}
       <section className={styles.heroSection}>
         <div className={`container ${styles.heroContainer}`}>

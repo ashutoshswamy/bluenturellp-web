@@ -1,6 +1,6 @@
 import styles from './page.module.css';
 import Link from 'next/link';
-import { ChevronDown, Leaf, Zap, Factory, ShoppingCart, Globe, CheckCircle, Headset } from 'lucide-react';
+import { Leaf, Zap, Factory, ShoppingCart, Globe, CheckCircle, Headset } from 'lucide-react';
 import { SlideUp as SlideUpAnim } from '@/components/animations/SlideUp';
 import { FadeIn as FadeInAnim } from '@/components/animations/FadeIn';
 import { StaggerContainer, StaggerItem } from '@/components/animations/Stagger';
@@ -10,12 +10,27 @@ export default function Commodities() {
     <div className={styles.main}>
       {/* 1. Hero Section */}
       <section className={styles.heroSection}>
+        <div className={styles.heroBackground}>
+          <video 
+            className={styles.heroVideo}
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+          >
+            <source src="/videos/commodities-hero.mp4" type="video/mp4" />
+          </video>
+          <div className={styles.heroOverlay}></div>
+        </div>
         <div className={`container ${styles.heroContainer}`}>
           <SlideUpAnim className={styles.heroContent}>
             <span className={`text-label ${styles.heroLabel}`}>
               TRADING EXCELLENCE
             </span>
-            <h1 className={styles.heroTitle}>Our Commodities Portfolio</h1>
+            <h1 className={styles.heroTitle}>
+              Our Commodities<br/>
+              <span className={styles.heroTitleHighlight}>Portfolio</span>
+            </h1>
             <p className={styles.heroDesc}>
               Connecting global markets with premium essential resources across four core<br/>
               industrial sectors.
@@ -28,7 +43,7 @@ export default function Commodities() {
       <section className={`section ${styles.goodsSection}`}>
         <div className="container">
           
-          {/* Header & Filter Bar */}
+          {/* Section Header */}
           <FadeInAnim className={styles.filterHeader}>
             <div className={styles.filterText}>
               <h2 className={styles.sectionTitle}>Diverse Range of Global Goods</h2>
@@ -36,17 +51,6 @@ export default function Commodities() {
                 Bluenture LLP specializes in the import and export of high-quality products. We<br/>
                 bridge the gap between production heartlands and global consumption hubs.
               </p>
-            </div>
-            
-            <div className={styles.filterControls}>
-              <button className={`btn btn-primary ${styles.dropdownBtn}`}>
-                All Sectors
-                <ChevronDown size={16} strokeWidth={3} style={{marginLeft: '0.5rem'}} />
-              </button>
-              <button className={`btn ${styles.sortBtn}`}>
-                Sort By
-                <ChevronDown size={16} strokeWidth={2} style={{marginLeft: '0.25rem'}} />
-              </button>
             </div>
           </FadeInAnim>
 

@@ -1,13 +1,13 @@
 import styles from './page.module.css';
 import Link from 'next/link';
-import { ArrowRight, Search, Globe, Ship, Plane, FileCheck, Check, ChevronRight } from 'lucide-react';
+import { ArrowRight, Search, Ship, Plane, FileCheck, Check, ChevronRight } from 'lucide-react';
 import { SlideUp as SlideUpAnim } from '@/components/animations/SlideUp';
 import { FadeIn as FadeInAnim } from '@/components/animations/FadeIn';
 import { StaggerContainer, StaggerItem } from '@/components/animations/Stagger';
 
 export default function Network() {
   return (
-    <div className={styles.main}>
+    <div className={`${styles.main} networkSection-light`}>
       {/* 1. Hero Section */}
       <section className={styles.heroSection}>
         <div className={`container ${styles.heroContainer}`}>

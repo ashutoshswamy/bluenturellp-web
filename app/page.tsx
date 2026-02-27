@@ -10,6 +10,18 @@ export default function Home() {
     <div className={styles.main}>
       {/* 1. Hero Section */}
       <section className={styles.heroSection}>
+        <div className={styles.heroBackground}>
+          <video 
+            className={styles.heroVideo}
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+          >
+            <source src="/videos/hero.mp4" type="video/mp4" />
+          </video>
+          <div className={styles.heroOverlay}></div>
+        </div>
         <div className={`container ${styles.heroContainer}`}>
           <SlideUpAnim className={styles.heroContent}>
             <span className={`text-label ${styles.heroLabel}`}>

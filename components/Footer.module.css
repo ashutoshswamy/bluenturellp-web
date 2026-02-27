@@ -37,9 +37,12 @@
 }
 
 .logoIcon {
-  color: var(--color-accent);
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
 }
 
 .logo span {

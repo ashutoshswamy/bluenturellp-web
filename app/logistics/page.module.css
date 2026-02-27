@@ -58,6 +58,7 @@
   line-height: 1.1;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
+  color: var(--color-primary);
 }
 
 @media (min-width: 768px) {
@@ -72,7 +73,7 @@
 
 .heroDesc {
   font-size: 0.9375rem;
-  color: var(--color-text-muted);
+  color: var(--color-text-main);
   line-height: 1.6;
   margin-bottom: 2rem;
 }
