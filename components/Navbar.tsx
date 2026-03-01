@@ -35,18 +35,20 @@ export default function Navbar() {
     { name: "About Us", path: "/about" },
   ];
 
+  if (pathname === '/quote') return null;
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
+        className={`fixed z-50 transition-all duration-500 ease-in-out left-1/2 -translate-x-1/2 w-[95%] max-w-7xl rounded-full border ${
           scrolled 
-            ? "py-3 glass shadow-lg border-b border-white/20" 
-            : "py-5 bg-transparent border-b border-transparent"
+            ? "top-4 py-3 bg-white/90 backdrop-blur-lg shadow-lg border-neutral-200/50" 
+            : "top-6 py-4 bg-white/70 backdrop-blur-lg shadow-md border-neutral-200/30"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="px-6 flex items-center justify-between w-full">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 overflow-hidden rounded-lg shadow-md transition-transform duration-300 group-hover:scale-105">
+            <div className="relative w-10 h-10 overflow-hidden rounded-full shadow-md transition-transform duration-300 group-hover:scale-105 border-2 border-neutral-200">
               <Image 
                 src="/logo.jpeg" 
                 alt="Bluenture LLP Logo" 
@@ -54,7 +56,7 @@ export default function Navbar() {
                 className="object-cover"
               />
             </div>
-            <span className={`font-bold text-xl tracking-tight transition-colors duration-300 ${scrolled ? 'text-primary-900' : 'text-neutral-900 md:text-white drop-shadow-md'}`}>
+            <span className="font-bold text-xl tracking-tight text-primary-900">
               BLUENTURE <span className="font-light">LLP</span>
             </span>
           </Link>
@@ -66,9 +68,7 @@ export default function Navbar() {
                 key={link.path} 
                 href={link.path} 
                 className={`relative text-sm font-medium transition-colors duration-300 hover:text-primary-500 ${
-                  isActive(link.path) 
-                    ? scrolled ? "text-primary-600" : "text-primary-400" 
-                    : scrolled ? "text-neutral-600" : "text-neutral-200"
+                  isActive(link.path) ? "text-primary-600" : "text-neutral-700"
                 }`}
               >
                 {link.name}
@@ -86,6 +86,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <Link 
               href="/quote" 
+              target="_blank"
               className="group relative inline-flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-semibold text-white bg-primary-800 rounded-full overflow-hidden transition-all hover:bg-primary-900 hover:scale-105 hover:shadow-[0_0_20px_rgba(11,47,91,0.3)]"
             >
               <span className="relative z-10">Get a Quote</span>
@@ -95,7 +96,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <button 
-            className={`md:hidden p-2 rounded-md transition-colors ${scrolled ? 'text-neutral-800' : 'text-white'}`}
+            className="md:hidden p-2 rounded-md text-neutral-800 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -139,6 +140,7 @@ export default function Navbar() {
               >
                 <Link 
                   href="/quote" 
+                  target="_blank"
                   className="w-full flex items-center justify-center gap-2 px-6 py-3 text-white bg-primary-800 rounded-lg shadow-md hover:bg-primary-900 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >

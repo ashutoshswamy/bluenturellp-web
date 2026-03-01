@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bluenture LLP — Global Trading & Sourcing Partner
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?logo=next.js)
+![React](https://img.shields.io/badge/React-19.2.3-61DAFB?logo=react)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
+![License](https://img.shields.io/badge/License-Proprietary-red)
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🌐 Overview
+
+The Bluenture LLP website serves as the digital face of the company — showcasing services, commodities, logistics capabilities, and a global supplier network. It enables prospective clients to learn about the company's offerings and request trade quotations.
+
+### Key Pages
+
+| Page | Route | Description |
+|------|-------|-------------|
+| **Home** | `/` | Hero section, services overview, and call-to-action |
+| **About** | `/about` | Company mission, vision, values, and team |
+| **Commodities** | `/commodities` | Product catalogue of traded commodities |
+| **Logistics** | `/logistics` | Supply chain and logistics capabilities |
+| **Network** | `/network` | Global trade network and partnerships |
+| **Quote** | `/quote` | Request-a-quote form for prospective clients |
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Framework** | [Next.js 16](https://nextjs.org/) (App Router) |
+| **UI Library** | [React 19](https://react.dev/) |
+| **Language** | [TypeScript 5](https://www.typescriptlang.org/) |
+| **Styling** | [Tailwind CSS 4](https://tailwindcss.com/) |
+| **Animations** | [Framer Motion 12](https://www.framer.com/motion/) |
+| **Icons** | [Lucide React](https://lucide.dev/) |
+| **Font** | [Inter](https://fonts.google.com/specimen/Inter) (via `next/font`) |
+| **Linting** | [ESLint 9](https://eslint.org/) with `eslint-config-next` |
+
+---
+
+## 📁 Project Structure
+
+```
+bluenturellp-web/
+├── app/
+│   ├── layout.tsx          # Root layout (Navbar + Footer wrapper)
+│   ├── page.tsx            # Home page
+│   ├── globals.css         # Global styles
+│   ├── about/page.tsx      # About Us page
+│   ├── commodities/page.tsx# Commodities page
+│   ├── logistics/page.tsx  # Logistics page
+│   ├── network/page.tsx    # Network page
+│   └── quote/page.tsx      # Request a Quote page
+├── components/
+│   ├── Navbar.tsx           # Site-wide navigation bar
+│   ├── Footer.tsx           # Site-wide footer
+│   └── animations/
+│       ├── FadeIn.tsx       # Fade-in animation wrapper
+│       ├── SlideUp.tsx      # Slide-up animation wrapper
+│       └── Stagger.tsx      # Staggered children animation
+├── public/
+│   ├── images/              # Static images
+│   ├── videos/              # Static videos
+│   ├── logo.jpeg            # Company logo
+│   └── favicon.ico          # Favicon & PWA icons
+├── package.json
+├── tsconfig.json
+├── next.config.ts
+├── postcss.config.mjs
+├── eslint.config.mjs
+└── tailwind.config.ts (v4 — zero-config)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎨 Design System
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Primary Font**: Inter (loaded via `next/font/google`)
+- **CSS Framework**: Tailwind CSS v4 with PostCSS integration
+- **Animation Library**: Framer Motion for scroll-triggered and page-transition animations
+- **Icon Set**: Lucide React for consistent, lightweight SVG icons
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📄 Related Documents
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Documentation](./DOCUMENTATION.md) — Architecture deep-dive, component API, and development guidelines
+- [Security Policy](./SECURITY.md) — Security practices, vulnerability reporting, and data handling
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<p align="center">
+  <sub>© 2026 Bluenture LLP. All rights reserved.</sub>
+</p>

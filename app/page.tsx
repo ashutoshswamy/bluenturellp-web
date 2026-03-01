@@ -1,8 +1,9 @@
 "use client";
 
 import Link from 'next/link';
-import { ArrowRight, Globe, CheckCircle, ShieldCheck, Eye, Handshake, TrendingUp } from 'lucide-react';
+import { ArrowRight, Globe, CheckCircle, ShieldCheck, Eye, Handshake } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
+import Image from 'next/image';
 
 export default function Home() {
   const containerVariants: Variants = {
@@ -33,7 +34,7 @@ export default function Home() {
             <source src="/videos/hero.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-primary-900/60 mix-blend-multiply"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/80 via-transparent to-neutral-50/90 md:to-neutral-50"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/80 via-transparent to-neutral-50/20 md:to-neutral-50/30"></div>
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 text-center md:text-left">
@@ -101,55 +102,86 @@ export default function Home() {
             className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]"
           >
             {/* Bento Card 1 - Large */}
-            <motion.div variants={itemVariants} className="md:col-span-2 group relative overflow-hidden rounded-3xl bg-white shadow-xl border border-neutral-100 hover-lift">
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/90 via-neutral-900/40 to-transparent z-10"></div>
-              {/* Fallback pattern since we don't have images */}
-              <div className="absolute inset-0 bg-primary-900 opacity-10 group-hover:scale-105 transition-transform duration-700 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary-500 to-transparent"></div>
+            <motion.div variants={itemVariants} className="md:col-span-2 group relative overflow-hidden rounded-3xl bg-neutral-900 shadow-xl border border-neutral-100 hover-lift min-h-[300px]">
+              <div className="absolute inset-0 z-0">
+                <Image src="/images/agricultural_minimal.png" alt="Agricultural Products" fill className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80" />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/60 to-neutral-900/10 z-10"></div>
               
               <div className="absolute bottom-0 left-0 p-8 z-20 w-full transform transition-transform duration-500">
-                <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white mb-4 border border-white/30 text-2xl shadow-lg">🌱</div>
+                <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-emerald-400 mb-4 border border-white/20 text-2xl shadow-lg">🌱</div>
                 <h3 className="text-2xl font-bold text-white mb-2">Agricultural Products</h3>
                 <p className="text-neutral-300 max-w-md">Premium grains, pulses, and organic produce sourced directly from certified sustainable farms tailored for global export.</p>
               </div>
             </motion.div>
 
             {/* Bento Card 2 */}
-            <motion.div variants={itemVariants} className="group relative overflow-hidden rounded-3xl bg-white shadow-xl border border-neutral-100 hover-lift">
-              <div className="absolute inset-0 bg-gradient-to-t from-primary-900/90 to-primary-800/20 z-10"></div>
+            <motion.div variants={itemVariants} className="group relative overflow-hidden rounded-3xl bg-neutral-900 shadow-xl border border-neutral-100 hover-lift min-h-[300px]">
+              <div className="absolute inset-0 z-0">
+                <Image src="/images/food_beverage_minimal.png" alt="Food & Beverages" fill className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80" />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/50 to-neutral-900/10 z-10"></div>
               <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
-                <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white mb-4 border border-white/30 text-2xl shadow-lg">🥫</div>
+                <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-amber-400 mb-4 border border-white/20 text-2xl shadow-lg">🥫</div>
                 <h3 className="text-xl font-bold text-white mb-2">Food & Beverages</h3>
-                <p className="text-primary-100/80 text-sm">High-quality food commodities built for distributors and institutional buyers.</p>
+                <p className="text-neutral-300 text-sm">High-quality food commodities built for distributors and institutional buyers.</p>
               </div>
             </motion.div>
 
             {/* Bento Card 3 */}
-            <motion.div variants={itemVariants} className="group relative overflow-hidden rounded-3xl bg-neutral-900 shadow-xl border border-neutral-800 hover-lift">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/20 rounded-full blur-[40px]"></div>
+            <motion.div variants={itemVariants} className="group relative overflow-hidden rounded-3xl bg-neutral-900 shadow-xl border border-neutral-800 hover-lift min-h-[300px]">
+              <div className="absolute inset-0 z-0">
+                <Image src="/images/consumer_goods_minimal.png" alt="Consumer Goods" fill className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-70" />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/60 to-neutral-900/10 z-10"></div>
               <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
-                <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-primary-400 mb-4 border border-white/10 text-2xl shadow-lg">📦</div>
+                <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-indigo-400 mb-4 border border-white/20 text-2xl shadow-lg">📦</div>
                 <h3 className="text-xl font-bold text-white mb-2">Consumer Goods</h3>
-                <p className="text-neutral-400 text-sm">Fast-moving consumer goods and household essentials for retail networks worldwide.</p>
+                <p className="text-neutral-300 text-sm">Fast-moving consumer goods and household essentials for retail networks worldwide.</p>
               </div>
             </motion.div>
 
-            {/* Bento Card 4 - Mini CTA */}
-            <motion.div variants={itemVariants} className="md:col-span-2 group relative overflow-hidden rounded-3xl bg-primary-50 shadow-xl border border-primary-100 flex items-center justify-between p-8 hover:bg-primary-100 transition-colors">
-              <div>
-                <h3 className="text-2xl font-bold text-primary-900 mb-2">Looking for specifically tailored commodities?</h3>
-                <p className="text-primary-700">Explore our complete catalog and sourcing capabilities.</p>
+            {/* Bento Card 4 - Large */}
+            <motion.div variants={itemVariants} className="md:col-span-2 group relative overflow-hidden rounded-3xl bg-neutral-900 shadow-xl border border-neutral-100 hover-lift min-h-[300px]">
+              <div className="absolute inset-0 z-0">
+                <Image src="/images/energy_minimal.png" alt="Energy & Minerals" fill className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80" />
               </div>
-              <Link href="/commodities" className="w-14 h-14 rounded-full bg-primary-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform shadow-[0_5px_15px_rgba(47,134,201,0.4)]">
-                <ArrowRight size={24} />
-              </Link>
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/60 to-neutral-900/10 z-10"></div>
+              <div className="absolute bottom-0 left-0 p-8 z-20 w-full transform transition-transform duration-500">
+                <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-amber-400 mb-4 border border-white/20 text-2xl shadow-lg">⚡</div>
+                <h3 className="text-2xl font-bold text-white mb-2">Energy & Minerals</h3>
+                <p className="text-neutral-300 max-w-md">High-grade ores, metallurgical coal, and refined energy solutions powering industrial growth worldwide.</p>
+              </div>
             </motion.div>
+
+          </motion.div>
+          
+          {/* Full Width CTA Banner */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="w-full mt-8 group relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary-900 via-primary-800 to-indigo-900 shadow-[0_20px_50px_rgba(11,47,91,0.2)] border border-primary-700/50 flex flex-col sm:flex-row items-center justify-between p-10 md:p-12 hover:shadow-2xl transition-all duration-500"
+          >
+            <div className="absolute inset-0 bg-[url('/textures/cubes.png')] opacity-10 mix-blend-overlay"></div>
+            <div className="relative z-10 mb-6 sm:mb-0">
+              <h3 className="text-3xl font-black text-white mb-3">Looking for tailored commodities?</h3>
+              <p className="text-primary-100/90 text-lg font-light leading-relaxed max-w-xl">
+                Explore our complete catalog and discover how we can optimize your global sourcing and supply chain capabilities.
+              </p>
+            </div>
+            <Link href="/commodities" className="relative z-10 shrink-0 px-8 py-4 bg-white text-primary-900 font-bold rounded-xl shadow-[0_5px_20px_rgba(255,255,255,0.2)] flex items-center justify-center gap-3 group-hover:bg-neutral-50 group-hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto text-center">
+              Explore Catalog
+              <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform" />
+            </Link>
           </motion.div>
         </div>
       </section>
 
       {/* 3. Reliability Network Section */}
       <section className="py-24 bg-neutral-900 text-white relative overflow-hidden border-t border-neutral-800 border-b">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div className="absolute inset-0 bg-[url('/textures/cubes.png')] opacity-5"></div>
         <div className="absolute -left-40 top-20 w-[500px] h-[500px] bg-primary-600/20 rounded-full blur-[120px] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-16">
@@ -164,7 +196,7 @@ export default function Home() {
               A Network Built on <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-white">Reliability</span>
             </h2>
             <p className="text-neutral-400 text-lg mb-10 leading-relaxed max-w-lg">
-              Bluenture LLP supports clients across multiple international markets, enabling seamless trade flows between trusted suppliers and global buyers. We navigate complexities so you don't have to.
+              Bluenture LLP supports clients across multiple international markets, enabling seamless trade flows between trusted suppliers and global buyers. We navigate complexities so you don&apos;t have to.
             </p>
             
             <div className="space-y-8">
@@ -195,18 +227,11 @@ export default function Home() {
             viewport={{ once: true }}
             className="lg:w-1/2 relative"
           >
-            {/* Visual placeholder for Map/Network Graphic */}
             <div className="aspect-square w-full max-w-lg mx-auto relative group">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary-900/50 to-primary-600/20 rounded-full blur-3xl animate-pulse-slow"></div>
-              <div className="absolute inset-4 rounded-full border border-neutral-800 flex items-center justify-center group-hover:border-primary-500/30 transition-colors duration-700">
-                <div className="absolute inset-8 rounded-full border border-neutral-800/50 flex items-center justify-center">
-                  <div className="absolute inset-12 rounded-full border border-neutral-800/30 flex items-center justify-center bg-neutral-900 shadow-2xl overflow-hidden glass-dark">
-                    <Globe size={120} className="text-primary-800/50" strokeWidth={1} />
-                    {/* Floating nodes */}
-                    <motion.div animate={{ y: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 3 }} className="absolute top-1/4 left-1/4 w-3 h-3 bg-primary-400 rounded-full shadow-[0_0_15px_rgba(57,166,214,0.8)]"></motion.div>
-                    <motion.div animate={{ y: [0, 15, 0] }} transition={{ repeat: Infinity, duration: 4 }} className="absolute bottom-1/3 right-1/4 w-4 h-4 bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.8)]"></motion.div>
-                    <motion.div animate={{ y: [0, -15, 0] }} transition={{ repeat: Infinity, duration: 5 }} className="absolute top-1/2 right-1/8 w-2 h-2 bg-primary-500 rounded-full shadow-[0_0_10px_rgba(57,166,214,0.8)]"></motion.div>
-                  </div>
+              <div className="relative w-full h-full rounded-full border border-neutral-800/50 flex items-center justify-center p-8">
+                <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl border border-white/5 group-hover:border-primary-500/30 transition-colors duration-700">
+                  <Image src="/images/network_reliability_minimal.png" alt="Global Network Reliability" fill className="object-cover transition-transform duration-[20s] group-hover:scale-110 ease-linear" />
                 </div>
               </div>
             </div>
@@ -272,7 +297,7 @@ export default function Home() {
                 Connect with our trade specialists today to discuss your specific requirements and receive a tailored quotation.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/quote" className="w-full sm:w-auto px-8 py-4 bg-white text-neutral-900 hover:bg-neutral-100 font-bold rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:-translate-y-1">
+                <Link href="/quote" target="_blank" className="w-full sm:w-auto px-8 py-4 bg-white text-neutral-900 hover:bg-neutral-100 font-bold rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:-translate-y-1">
                   Request a Quote
                 </Link>
                 <Link href="/about" className="w-full sm:w-auto px-8 py-4 bg-neutral-800 text-white hover:bg-neutral-700 font-semibold rounded-xl border border-neutral-700 transition-all duration-300 hover:scale-105 hover:-translate-y-1">

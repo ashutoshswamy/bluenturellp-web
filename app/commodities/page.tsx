@@ -1,7 +1,7 @@
 "use client";
 
-import Link from 'next/link';
-import { Leaf, Zap, ShoppingCart, Globe, CheckCircle, Headset, ArrowRight } from 'lucide-react';
+import { Leaf, Zap, ShoppingCart, Globe, CheckCircle, Headset } from 'lucide-react';
+import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 
 export default function Commodities() {
@@ -30,7 +30,7 @@ export default function Commodities() {
             <source src="/videos/commodities-hero.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-primary-900/50 mix-blend-multiply"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-50 via-transparent to-neutral-900/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-50/20 md:from-neutral-50/30 via-transparent to-neutral-900/60"></div>
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 text-center">
@@ -84,68 +84,49 @@ export default function Commodities() {
           >
             {/* Agricutural */}
             <motion.div variants={itemVariants} className="group glass rounded-[2rem] overflow-hidden border border-neutral-200 hover:border-primary-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
-              <div className="h-48 bg-neutral-200 relative overflow-hidden bg-emerald-900/10">
-                {/* Fallback pattern */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-20 transform group-hover:scale-110 transition-transform duration-700">
-                   <Leaf size={100} className="text-emerald-700" />
-                </div>
+              <div className="h-48 bg-neutral-200 relative overflow-hidden">
+                <Image src="/images/agricultural_minimal.png" alt="Agricultural minimal abstraction" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="p-8 flex-1 flex flex-col">
                 <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-6 shadow-sm border border-emerald-200">
                   <Leaf size={24} />
                 </div>
                 <h3 className="text-2xl font-bold text-neutral-900 mb-4">Agricultural</h3>
-                <p className="text-neutral-600 mb-8 flex-1 leading-relaxed">
+                <p className="text-neutral-600 flex-1 leading-relaxed">
                   Grains, pulses, and organic produce sourced from certified sustainable farms globally.
                 </p>
-                <Link href="#" className="inline-flex items-center gap-2 text-primary-600 font-semibold group-hover:text-primary-800 transition-colors">
-                  Learn More 
-                  <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />
-                </Link>
               </div>
             </motion.div>
 
             {/* Energy */}
             <motion.div variants={itemVariants} className="group glass rounded-[2rem] overflow-hidden border border-neutral-200 hover:border-primary-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
-              <div className="h-48 bg-neutral-200 relative overflow-hidden bg-amber-900/10">
-                <div className="absolute inset-0 flex items-center justify-center opacity-20 transform group-hover:scale-110 transition-transform duration-700">
-                   <Zap size={100} className="text-amber-700" />
-                </div>
+              <div className="h-48 bg-neutral-200 relative overflow-hidden">
+                <Image src="/images/energy_minimal.png" alt="Energy minimal abstraction" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="p-8 flex-1 flex flex-col">
                 <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-6 shadow-sm border border-amber-200">
                   <Zap size={24} />
                 </div>
                 <h3 className="text-2xl font-bold text-neutral-900 mb-4">Energy & Minerals</h3>
-                <p className="text-neutral-600 mb-8 flex-1 leading-relaxed">
+                <p className="text-neutral-600 flex-1 leading-relaxed">
                   High-grade ores, metallurgical coal, and refined energy solutions for industrial growth.
                 </p>
-                <Link href="#" className="inline-flex items-center gap-2 text-primary-600 font-semibold group-hover:text-primary-800 transition-colors">
-                  Learn More 
-                  <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />
-                </Link>
               </div>
             </motion.div>
 
             {/* Consumer Goods */}
             <motion.div variants={itemVariants} className="group glass rounded-[2rem] overflow-hidden border border-neutral-200 hover:border-primary-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
-              <div className="h-48 bg-neutral-200 relative overflow-hidden bg-indigo-900/10">
-                <div className="absolute inset-0 flex items-center justify-center opacity-20 transform group-hover:scale-110 transition-transform duration-700">
-                   <ShoppingCart size={100} className="text-indigo-700" />
-                </div>
+              <div className="h-48 bg-neutral-200 relative overflow-hidden">
+                <Image src="/images/consumer_goods_minimal.png" alt="Consumer goods minimal abstraction" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="p-8 flex-1 flex flex-col">
                 <div className="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-6 shadow-sm border border-indigo-200">
                   <ShoppingCart size={24} />
                 </div>
                 <h3 className="text-2xl font-bold text-neutral-900 mb-4">Consumer Goods</h3>
-                <p className="text-neutral-600 mb-8 flex-1 leading-relaxed">
+                <p className="text-neutral-600 flex-1 leading-relaxed">
                   Fast-moving consumer goods and household essentials delivered to retail networks.
                 </p>
-                <Link href="#" className="inline-flex items-center gap-2 text-primary-600 font-semibold group-hover:text-primary-800 transition-colors">
-                  Learn More 
-                  <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />
-                </Link>
               </div>
             </motion.div>
           </motion.div>

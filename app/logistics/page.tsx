@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Ship, Plane, FileCheck, Warehouse } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
 
@@ -51,18 +52,21 @@ export default function Logistics() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:w-1/2 relative w-full aspect-square md:aspect-video lg:aspect-square"
           >
-            <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-4">
-               <div className="bg-primary-100 rounded-[2rem] row-span-2 col-span-1 overflow-hidden relative group shadow-lg">
-                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary-900/60 z-10"></div>
-                 <Ship className="absolute bottom-6 left-6 text-white z-20" size={48} />
+            <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-6">
+               <div className="bg-primary-100 rounded-[2.5rem] row-span-2 col-span-1 overflow-hidden relative group shadow-2xl shadow-primary-900/10 border border-white/40">
+                 <Image src="/images/sea_freight_minimal.png" alt="Sea Freight" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 to-transparent z-10 opacity-80"></div>
+                 <Ship className="absolute bottom-8 left-8 text-white z-20" size={48} strokeWidth={1.5} />
                </div>
-               <div className="bg-indigo-100 rounded-[2rem] row-span-1 col-span-1 overflow-hidden relative group shadow-lg">
-                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-indigo-900/60 z-10"></div>
-                 <Plane className="absolute bottom-6 left-6 text-white z-20" size={36} />
+               <div className="bg-indigo-100 rounded-[2.5rem] row-span-1 col-span-1 overflow-hidden relative group shadow-2xl shadow-indigo-900/10 border border-white/40">
+                 <Image src="/images/air_freight_minimal.png" alt="Air Freight" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/40 to-transparent z-10 opacity-80"></div>
+                 <Plane className="absolute bottom-8 left-8 text-white z-20" size={36} strokeWidth={1.5} />
                </div>
-               <div className="bg-emerald-100 rounded-[2rem] row-span-1 col-span-1 overflow-hidden relative group shadow-lg">
-                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-emerald-900/60 z-10"></div>
-                 <Warehouse className="absolute bottom-6 left-6 text-white z-20" size={36} />
+               <div className="bg-emerald-100 rounded-[2.5rem] row-span-1 col-span-1 overflow-hidden relative group shadow-2xl shadow-emerald-900/10 border border-white/40">
+                 <Image src="/images/warehouse_minimal.png" alt="Secure Warehousing" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/40 to-transparent z-10 opacity-80"></div>
+                 <Warehouse className="absolute bottom-8 left-8 text-white z-20" size={36} strokeWidth={1.5} />
                </div>
             </div>
           </motion.div>
@@ -92,52 +96,60 @@ export default function Logistics() {
             className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
             {/* Ocean Freight */}
-            <motion.div variants={itemVariants} className="glass p-8 rounded-3xl border border-neutral-200 hover:border-primary-200 hover:shadow-xl transition-all duration-300 flex items-start gap-6 group bg-white">
-              <div className="w-16 h-16 rounded-2xl bg-primary-50 text-primary-600 flex items-center justify-center shrink-0 shadow-sm border border-primary-100 group-hover:scale-110 transition-transform">
-                <Ship size={32} />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-neutral-900 mb-3">Ocean Freight Cargo</h3>
-                <p className="text-neutral-600 leading-relaxed">
+            <motion.div variants={itemVariants} className="group relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 min-h-[320px] md:col-span-2 lg:col-span-1 border border-neutral-200/50">
+              <Image src="/images/sea_freight_minimal.png" alt="Ocean Freight Cargo" fill className="object-cover transition-transform duration-[10s] group-hover:scale-110 ease-out" />
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/90 via-neutral-900/40 to-transparent z-10 transition-opacity duration-300 group-hover:opacity-90"></div>
+              <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white mb-6 transform group-hover:-translate-y-2 transition-transform duration-300">
+                  <Ship size={32} />
+                </div>
+                <h3 className="text-3xl font-bold mb-3 tracking-tight">Ocean Freight Cargo</h3>
+                <p className="text-neutral-200 leading-relaxed font-light">
                   Handling bulk carriers, tankers, and FCL/LCL container shipping across all major international trade routes with guaranteed space allocations.
                 </p>
               </div>
             </motion.div>
             
             {/* Air Cargo */}
-            <motion.div variants={itemVariants} className="glass p-8 rounded-3xl border border-neutral-200 hover:border-indigo-200 hover:shadow-xl transition-all duration-300 flex items-start gap-6 group bg-white">
-              <div className="w-16 h-16 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 shadow-sm border border-indigo-100 group-hover:scale-110 transition-transform">
-                <Plane size={32} />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-neutral-900 mb-3">Air Cargo Transit</h3>
-                <p className="text-neutral-600 leading-relaxed">
+            <motion.div variants={itemVariants} className="group relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 min-h-[320px] border border-neutral-200/50">
+              <Image src="/images/air_freight_minimal.png" alt="Air Cargo Transit" fill className="object-cover transition-transform duration-[10s] group-hover:scale-110 ease-out" />
+              <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/90 via-indigo-900/40 to-transparent z-10 transition-opacity duration-300 group-hover:opacity-90"></div>
+              <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white mb-6 transform group-hover:-translate-y-2 transition-transform duration-300">
+                  <Plane size={32} />
+                </div>
+                <h3 className="text-3xl font-bold mb-3 tracking-tight">Air Cargo Transit</h3>
+                <p className="text-indigo-100 leading-relaxed font-light">
                   Expedited, high-security air freight for time-critical, high-value, or perishable commodities requiring immediate global delivery.
                 </p>
               </div>
             </motion.div>
             
             {/* Customs */}
-            <motion.div variants={itemVariants} className="glass p-8 rounded-3xl border border-neutral-200 hover:border-emerald-200 hover:shadow-xl transition-all duration-300 flex items-start gap-6 group bg-white">
-              <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 shadow-sm border border-emerald-100 group-hover:scale-110 transition-transform">
-                <FileCheck size={32} />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-neutral-900 mb-3">Customs & Compliance</h3>
-                <p className="text-neutral-600 leading-relaxed">
+            <motion.div variants={itemVariants} className="group relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 min-h-[320px] border border-neutral-200/50">
+              <Image src="/images/customs_minimal.png" alt="Customs & Compliance" fill className="object-cover transition-transform duration-[10s] group-hover:scale-110 ease-out" />
+              <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/90 via-emerald-900/40 to-transparent z-10 transition-opacity duration-300 group-hover:opacity-90"></div>
+              <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white mb-6 transform group-hover:-translate-y-2 transition-transform duration-300">
+                  <FileCheck size={32} />
+                </div>
+                <h3 className="text-3xl font-bold mb-3 tracking-tight">Customs & Compliance</h3>
+                <p className="text-emerald-100 leading-relaxed font-light">
                   Expert brokerage services navigating complex international trade regulations, minimizing delays, and optimizing duty and tax burdens.
                 </p>
               </div>
             </motion.div>
             
             {/* Warehousing */}
-            <motion.div variants={itemVariants} className="glass p-8 rounded-3xl border border-neutral-200 hover:border-amber-200 hover:shadow-xl transition-all duration-300 flex items-start gap-6 group bg-white">
-              <div className="w-16 h-16 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 shadow-sm border border-amber-100 group-hover:scale-110 transition-transform">
-                <Warehouse size={32} />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-neutral-900 mb-3">Secure Warehousing</h3>
-                <p className="text-neutral-600 leading-relaxed">
+            <motion.div variants={itemVariants} className="group relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 min-h-[320px] md:col-span-2 lg:col-span-1 border border-neutral-200/50">
+              <Image src="/images/warehouse_minimal.png" alt="Secure Warehousing" fill className="object-cover transition-transform duration-[10s] group-hover:scale-110 ease-out" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary-900/90 via-primary-900/40 to-transparent z-10 transition-opacity duration-300 group-hover:opacity-90"></div>
+              <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white mb-6 transform group-hover:-translate-y-2 transition-transform duration-300">
+                  <Warehouse size={32} />
+                </div>
+                <h3 className="text-3xl font-bold mb-3 tracking-tight">Secure Warehousing</h3>
+                <p className="text-primary-100 leading-relaxed font-light">
                   Strategically located, climate-controlled, and high-security storage facilities tailored for sensitive and high-value commodities.
                 </p>
               </div>

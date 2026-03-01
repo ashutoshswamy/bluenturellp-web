@@ -1,7 +1,8 @@
 "use client";
 
 import Link from 'next/link';
-import { ArrowRight, Ship, Plane, FileCheck, Check, ChevronRight } from 'lucide-react';
+import { ArrowRight, Ship, Plane, FileCheck, Check } from 'lucide-react';
+import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 
 export default function Network() {
@@ -58,13 +59,11 @@ export default function Network() {
             className="lg:w-1/2 relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl border border-white/40"
           >
             <div className="absolute inset-0 z-10 ring-1 ring-inset ring-black/10 rounded-[2rem]"></div>
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover"
-              src="/videos/commodities-hero.mp4"
+            <Image
+              src="/images/global_logistics_minimal.png"
+              alt="Global Logistics & Trade Network"
+              fill
+              className="object-cover"
             />
           </motion.div>
         </div>
@@ -72,7 +71,7 @@ export default function Network() {
 
       {/* 2. Capabilities Section */}
       <section className="py-24 bg-neutral-900 text-white relative">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div className="absolute inset-0 bg-[url('/textures/cubes.png')] opacity-5"></div>
         <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-primary-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -117,10 +116,6 @@ export default function Network() {
                   <span>Refrigerated cargo</span>
                 </li>
               </ul>
-              <Link href="#" className="inline-flex items-center gap-2 text-primary-400 font-semibold group-hover:text-primary-300 transition-colors">
-                Learn More 
-                <ChevronRight size={16} strokeWidth={2} className="transform group-hover:translate-x-1 transition-transform" />
-              </Link>
             </motion.div>
 
             {/* Air Transit */}
@@ -143,10 +138,6 @@ export default function Network() {
                   <span>Cargo consolidation</span>
                 </li>
               </ul>
-              <Link href="#" className="inline-flex items-center gap-2 text-indigo-400 font-semibold group-hover:text-indigo-300 transition-colors">
-                Learn More 
-                <ChevronRight size={16} strokeWidth={2} className="transform group-hover:translate-x-1 transition-transform" />
-              </Link>
             </motion.div>
 
             {/* Customs Brokerage */}
@@ -169,10 +160,6 @@ export default function Network() {
                   <span>Documentation management</span>
                 </li>
               </ul>
-              <Link href="#" className="inline-flex items-center gap-2 text-emerald-400 font-semibold group-hover:text-emerald-300 transition-colors">
-                Learn More 
-                <ChevronRight size={16} strokeWidth={2} className="transform group-hover:translate-x-1 transition-transform" />
-              </Link>
             </motion.div>
           </motion.div>
         </div>
