@@ -1,207 +1,217 @@
-import styles from './page.module.css';
-import { Send, Building2, Package, MapPin, Anchor, Mail, Phone } from 'lucide-react';
-import { SlideUp as SlideUpAnim } from '@/components/animations/SlideUp';
+"use client";
+
+import { Send, Building2, Package, MapPin, Anchor, Mail, Phone, Globe, CheckCircle } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
 
 export default function Quote() {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  };
+
   return (
-    <div className={styles.main}>
-      <div className={styles.splitLayout}>
+    <div className="flex flex-col lg:flex-row min-h-screen bg-neutral-50 overflow-hidden">
+      
+      {/* Left Side: Image & Branding */}
+      <div className="lg:w-[45%] bg-primary-900 relative flex flex-col justify-center px-8 py-20 lg:p-20 text-white min-h-[50vh] lg:min-h-screen z-10">
+        <div className="absolute inset-0 bg-[url('/images/quote-bg.jpg')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-primary-900 via-primary-900/80 to-transparent"></div>
         
-        {/* Left Side: Image & Branding */}
-        <div className={styles.leftPane}>
-          <div className={styles.leftContent}>
-            <div className={styles.partnerBadge}>
-               <GlobeIcon className={styles.badgeIcon} />
-               GLOBAL LOGISTICS PARTNER
+        {/* Glow Effects */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/20 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/2"></div>
+        
+        <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="relative z-10 max-w-lg pt-16 lg:pt-0"
+        >
+          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8 font-bold text-xs tracking-widest text-primary-200 uppercase shadow-xl">
+             <Globe size={14} />
+             Global Trade Partner
+          </motion.div>
+          
+          <motion.h1 variants={itemVariants} className="text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight mb-8">
+            Streamline Your <br/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-300 to-indigo-300 text-6xl lg:text-7xl italic opacity-90">Sourcing.</span>
+          </motion.h1>
+          
+          <motion.p variants={itemVariants} className="text-lg lg:text-xl text-primary-100/80 mb-12 font-light leading-relaxed">
+            From procurement and quality assurance to documentation and logistics coordination, we simplify cross-border commerce with reliability, speed, and precision.
+          </motion.p>
+          
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 border-t border-white/10 pt-8 mt-auto">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-emerald-400">
+                <CheckCircle size={24} />
+              </div>
+              <div>
+                <h4 className="font-bold">Certified</h4>
+                <p className="text-sm text-primary-200/60">Operations</p>
+              </div>
             </div>
-            <h1 className={styles.leftTitle}>
-              Powering Your<br/>
-              Global Supply Chain.
-            </h1>
-            <p className={styles.leftDesc}>
-              From agricultural commodities to industrial raw materials, we bridge the gap between global demand and supply with precision logistics.
-            </p>
-            
-            <div className={styles.trustBadges}>
-              <div className={styles.trustBadge}>
-                <CheckCircleIcon className={styles.trustIcon} />
-                <span>Certified Operations</span>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-indigo-400">
+                <Globe size={24} />
               </div>
-              <div className={styles.trustBadge}>
-                <GlobeIcon className={styles.trustIcon} />
-                <span>120+ Countries</span>
+              <div>
+                <h4 className="font-bold">120+</h4>
+                <p className="text-sm text-primary-200/60">Countries</p>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
+      </div>
 
-        {/* Right Side: Form & Info */}
-        <div className={styles.rightPane}>
-          <div className={styles.formContainer}>
-            
-            <SlideUpAnim>
-              <div className={styles.formHeader}>
-                <h2>Request a Custom Quote</h2>
-                <div className={styles.formHeaderRight}>
-                  <p>Fill in the details below to receive a personalized logistics proposal.</p>
-                  <div className={styles.stepIndicator}>
-                    Step 1 of 2
+      {/* Right Side: Form & Info */}
+      <div className="lg:w-[55%] flex flex-col bg-white lg:rounded-l-[3rem] shadow-[-20px_0_40px_rgba(0,0,0,0.05)] relative z-20 pt-16 lg:pt-0">
+        <div className="flex-1 w-full max-w-3xl mx-auto px-6 py-16 lg:p-16 xl:p-24 overflow-y-auto no-scrollbar">
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="mb-12">
+              <h2 className="text-4xl font-black text-neutral-900 mb-3 tracking-tight">Request a Custom Quote</h2>
+              <p className="text-neutral-500 text-lg">Fill in the details below to receive a personalized logistics proposal.</p>
+            </div>
+
+            <form className="space-y-6">
+              {/* Form Group */}
+              <div>
+                <label className="block text-sm font-bold text-neutral-700 mb-2">Company Name</label>
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-neutral-400 group-focus-within:text-primary-600 transition-colors">
+                    <Building2 size={20} />
                   </div>
-                </div>
-                {/* Progress bar mimicking reference */}
-                <div className={styles.progressBar}>
-                  <div className={styles.progressFill}></div>
+                  <input type="text" placeholder="e.g. Global Trade Corp" className="w-full pl-12 pr-4 py-4 bg-neutral-50 border border-neutral-200 text-neutral-900 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all font-medium placeholder-neutral-400 hover:bg-white" />
                 </div>
               </div>
 
-              <form className={styles.quoteForm}>
-                <div className={styles.formGroup}>
-                  <label>Company Name</label>
-                  <div className={styles.inputWrapper}>
-                    <Building2 className={styles.inputIcon} />
-                    <input type="text" placeholder="e.g. Global Trade Corp" className={styles.input} />
+              {/* Form Row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-bold text-neutral-700 mb-2">Email Address</label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-neutral-400 group-focus-within:text-primary-600 transition-colors">
+                      <Mail size={20} />
+                    </div>
+                    <input type="email" placeholder="you@company.com" className="w-full pl-12 pr-4 py-4 bg-neutral-50 border border-neutral-200 text-neutral-900 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all font-medium placeholder-neutral-400 hover:bg-white" />
                   </div>
                 </div>
-
-                <div className={styles.formRow}>
-                  <div className={styles.formGroup}>
-                    <label>Email Address</label>
-                    <div className={styles.inputWrapper}>
-                      <Mail className={styles.inputIcon} />
-                      <input type="email" placeholder="you@company.com" className={styles.input} />
+                
+                <div>
+                  <label className="block text-sm font-bold text-neutral-700 mb-2">Contact Number</label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-neutral-400 group-focus-within:text-primary-600 transition-colors">
+                      <Phone size={20} />
                     </div>
-                  </div>
-                  
-                  <div className={styles.formGroup}>
-                    <label>Contact Number</label>
-                    <div className={styles.inputWrapper}>
-                      <Phone className={styles.inputIcon} />
-                      <input type="tel" placeholder="+1 (555) 000-0000" className={styles.input} />
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.formRow}>
-                  <div className={styles.formGroup}>
-                    <label>Commodity Type</label>
-                    <div className={styles.inputWrapper}>
-                      <Package className={styles.inputIcon} />
-                      <select className={`${styles.input} ${styles.select}`}>
-                        <option value="">Select Commodity</option>
-                        <option value="agriculture">Agriculture</option>
-                        <option value="metals">Metals</option>
-                        <option value="energy">Energy</option>
-                        <option value="industrial">Industrial</option>
-                      </select>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.formGroup}>
-                    <label>Estimated Volume (Tons)</label>
-                    <div className={styles.inputWrapper}>
-                      <Package className={styles.inputIcon} />
-                      <input type="number" placeholder="e.g. 500" className={styles.input} />
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.formRow}>
-                  <div className={styles.formGroup}>
-                    <label>Port of Origin</label>
-                    <div className={styles.inputWrapper}>
-                      <MapPin className={styles.inputIcon} />
-                      <input type="text" placeholder="City or Port Name" className={styles.input} />
-                    </div>
-                  </div>
-                  
-                  <div className={styles.formGroup}>
-                    <label>Destination Port</label>
-                    <div className={styles.inputWrapper}>
-                      <Anchor className={styles.inputIcon} />
-                      <input type="text" placeholder="City or Port Name" className={styles.input} />
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label>Special Handling Requirements</label>
-                  <textarea 
-                    className={styles.textarea} 
-                    placeholder="Temperature control, fragile goods, hazardous materials, etc."
-                    rows={4}
-                  ></textarea>
-                </div>
-
-                <div className={styles.formActions}>
-                  <button type="button" className={`btn btn-primary ${styles.submitBtn}`}>
-                    Submit Request
-                    <Send size={16} />
-                  </button>
-                  <button type="button" className={`btn ${styles.saveBtn}`}>
-                    Save for Later
-                  </button>
-                </div>
-              </form>
-
-              {/* What happens next box */}
-              <div className={styles.infoBox}>
-                <h3>What happens next?</h3>
-                <div className={styles.infoSteps}>
-                  <div className={styles.infoStep}>
-                    <div className={styles.stepNum}>1</div>
-                    <h4>Analysis</h4>
-                    <p>Our logistics experts analyze your requirements and route feasibility.</p>
-                  </div>
-                  <div className={styles.infoStep}>
-                    <div className={styles.stepNum}>2</div>
-                    <h4>Quotation</h4>
-                    <p>Within 24 hours, you'll receive a detailed competitive quote via email.</p>
-                  </div>
-                  <div className={styles.infoStep}>
-                    <div className={styles.stepNum}>3</div>
-                    <h4>Onboarding</h4>
-                    <p>Upon approval, your dedicated account manager starts the process.</p>
+                    <input type="tel" placeholder="+1 (555) 000-0000" className="w-full pl-12 pr-4 py-4 bg-neutral-50 border border-neutral-200 text-neutral-900 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all font-medium placeholder-neutral-400 hover:bg-white" />
                   </div>
                 </div>
               </div>
-              
-              {/* Footer contact details */}
-              <div className={styles.contactFooter}>
-                <div className={styles.contactBlock}>
-                   <span className={styles.contactLabel}>DIRECT SUPPORT</span>
-                   <span className={styles.contactValue}>+1 (555) 890-2344</span>
+
+              {/* Form Row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-bold text-neutral-700 mb-2">Commodity Type</label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-neutral-400 group-focus-within:text-primary-600 transition-colors">
+                      <Package size={20} />
+                    </div>
+                    <select className="w-full pl-12 pr-4 py-4 bg-neutral-50 border border-neutral-200 text-neutral-900 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all font-medium hover:bg-white appearance-none cursor-pointer">
+                      <option value="">Select Commodity</option>
+                      <option value="agriculture">Agriculture</option>
+                      <option value="food">Food & Beverages</option>
+                      <option value="energy">Energy & Minerals</option>
+                      <option value="consumer">Consumer Goods</option>
+                    </select>
+                  </div>
                 </div>
-                <div className={styles.contactBlock}>
-                   <span className={styles.contactLabel}>EMAIL INQUIRY</span>
-                   <span className={styles.contactValue}>quotes@bluenture.com</span>
+                
+                <div>
+                  <label className="block text-sm font-bold text-neutral-700 mb-2">Estimated Volume (Tons)</label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-neutral-400 group-focus-within:text-primary-600 transition-colors">
+                      <Package size={20} />
+                    </div>
+                    <input type="number" placeholder="e.g. 500" className="w-full pl-12 pr-4 py-4 bg-neutral-50 border border-neutral-200 text-neutral-900 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all font-medium placeholder-neutral-400 hover:bg-white" />
+                  </div>
                 </div>
               </div>
-            </SlideUpAnim>
 
-          </div>
+              {/* Form Row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-bold text-neutral-700 mb-2">Port of Origin</label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-neutral-400 group-focus-within:text-primary-600 transition-colors">
+                      <MapPin size={20} />
+                    </div>
+                    <input type="text" placeholder="City or Port Name" className="w-full pl-12 pr-4 py-4 bg-neutral-50 border border-neutral-200 text-neutral-900 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all font-medium placeholder-neutral-400 hover:bg-white" />
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-bold text-neutral-700 mb-2">Destination Port</label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-neutral-400 group-focus-within:text-primary-600 transition-colors">
+                      <Anchor size={20} />
+                    </div>
+                    <input type="text" placeholder="City or Port Name" className="w-full pl-12 pr-4 py-4 bg-neutral-50 border border-neutral-200 text-neutral-900 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all font-medium placeholder-neutral-400 hover:bg-white" />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-neutral-700 mb-2">Special Handling Requirements</label>
+                <textarea 
+                  className="w-full p-4 bg-neutral-50 border border-neutral-200 text-neutral-900 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all font-medium placeholder-neutral-400 hover:bg-white resize-none" 
+                  placeholder="Temperature control, fragile goods, hazardous materials, etc."
+                  rows={4}
+                ></textarea>
+              </div>
+
+              <div className="pt-4">
+                <button type="button" className="w-full py-5 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-2xl shadow-xl shadow-primary-600/30 transition-all duration-300 flex items-center justify-center gap-2 group transform hover:-translate-y-1">
+                  Submit Request
+                  <Send size={18} className="transform group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </form>
+
+            {/* What happens next box */}
+            <div className="mt-16 bg-neutral-50 border border-neutral-200 rounded-3xl p-8">
+              <h3 className="text-xl font-bold text-neutral-900 mb-6">What happens next?</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div>
+                  <div className="w-10 h-10 rounded-full bg-primary-100 text-primary-600 font-black flex items-center justify-center mb-4">1</div>
+                  <h4 className="font-bold text-neutral-900 mb-2">Analysis</h4>
+                  <p className="text-sm text-neutral-500 leading-relaxed">Our logistics experts analyze your requirements and route feasibility.</p>
+                </div>
+                <div>
+                  <div className="w-10 h-10 rounded-full bg-primary-100 text-primary-600 font-black flex items-center justify-center mb-4">2</div>
+                  <h4 className="font-bold text-neutral-900 mb-2">Quotation</h4>
+                  <p className="text-sm text-neutral-500 leading-relaxed">Within 24 hours, you'll receive a detailed competitive quote via email.</p>
+                </div>
+                <div>
+                  <div className="w-10 h-10 rounded-full bg-primary-100 text-primary-600 font-black flex items-center justify-center mb-4">3</div>
+                  <h4 className="font-bold text-neutral-900 mb-2">Onboarding</h4>
+                  <p className="text-sm text-neutral-500 leading-relaxed">Upon approval, your dedicated account manager starts the process.</p>
+                </div>
+              </div>
+            </div>
+
+          </motion.div>
         </div>
       </div>
     </div>
-  );
-}
-
-
-// Simple icons since Lucide's Globe/CheckCircle have style clashes sometimes
-function GlobeIcon(props: any) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <circle cx="12" cy="12" r="10"></circle>
-      <line x1="2" y1="12" x2="22" y2="12"></line>
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-    </svg>
-  );
-}
-
-function CheckCircleIcon(props: any) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-      <polyline points="22 4 12 14.01 9 11.01"></polyline>
-    </svg>
   );
 }

@@ -1,245 +1,79 @@
-:root {
-  /* Primary Scale (Ocean Blues) */
-  --primary-900: #0B2F5B;
-  --primary-800: #154E8A;
-  --primary-700: #1E6FB8;
-  --primary-600: #2F86C9;
-  --primary-500: #39A6D6;
-  --primary-100: #E7F4FB;
+@import "tailwindcss";
 
-  /* Neutral Scale (Corporate Clean) */
-  --neutral-900: #1C2430;
-  --neutral-700: #4A5568;
-  --neutral-500: #718096;
-  --neutral-200: #E5EAF1;
-  --neutral-100: #F4F8FC;
-  --neutral-0: #FFFFFF;
-
-  /* Brand Identity Color Palette */
-  --color-primary: var(--primary-900); /* Ocean Navy — core identity, typography, dark backgrounds */
-  --color-primary-hover: var(--primary-800);
-  --color-accent: var(--primary-500); /* Silk Gold — CTAs, highlights, interactive elements */
-  --color-accent-hover: var(--primary-600);
-  --color-secondary: var(--primary-800);
+@theme {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   
-  --color-background: var(--neutral-0);
-  --color-surface-light: var(--neutral-100); /* Alabaster White */
-  --color-surface-dark: var(--primary-900); /* Ocean Navy for footer & dark sections */
-  
-  --color-text-main: var(--neutral-900); /* Ocean Navy for main text */
-  --color-text-muted: var(--neutral-500); /* Steel Grey for secondary text */
-  --color-text-light: var(--neutral-0); /* Alabaster White for text on dark backgrounds */
-  
-  --color-border: var(--neutral-200);
-  
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 8rem;
+  --color-primary-900: #0B2F5B;
+  --color-primary-800: #154E8A;
+  --color-primary-700: #1E6FB8;
+  --color-primary-600: #2F86C9;
+  --color-primary-500: #39A6D6;
+  --color-primary-100: #E7F4FB;
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-full: 9999px;
+  --color-neutral-900: #0a0f1a;
+  --color-neutral-800: #131c2f;
+  --color-neutral-700: #1e293b;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-100: #f8fafc;
+  --color-neutral-50: #fdfdfe;
 
-  --transition-fast: 0.15s ease-in-out;
-  --transition-normal: 0.3s ease-in-out;
-
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  overflow-x: hidden;
-}
-
-body {
-  background-color: var(--color-background);
-  color: var(--color-text-main);
-  font-family: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-}
-
-img, video, svg {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Reduce spacing on mobile */
-@media (max-width: 767px) {
-  :root {
-    --spacing-lg: 2.5rem;
-    --spacing-xl: 4rem;
+@layer base {
+  * {
+    @apply border-neutral-200;
+  }
+  body {
+    @apply bg-neutral-50 text-neutral-900 antialiased selection:bg-primary-500/20 selection:text-primary-900;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-@media (max-width: 480px) {
-  :root {
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl;
+  }
+  
+  .glass-dark {
+    @apply bg-neutral-900/60 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-900 via-primary-600 to-primary-500 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-light {
+    @apply bg-gradient-to-r from-white via-primary-100 to-primary-500/80 bg-clip-text text-transparent;
+  }
+  
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl;
   }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--color-text-main);
-  margin-bottom: var(--spacing-sm);
-  letter-spacing: -0.02em;
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color var(--transition-fast);
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .5; }
 }
 
-ul, ol {
-  list-style: none;
+/* Custom CSS to hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
-
-button {
-  cursor: pointer;
-  font-family: inherit;
-  border: none;
-  background: transparent;
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-
-input, textarea {
-  font-family: inherit;
-}
-
-/* Base Utility Classes for Layout */
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding: 0 2rem;
-  }
-}
-
-.section {
-  padding: var(--spacing-lg) 0;
-}
-
-@media (min-width: 768px) {
-  .section {
-    padding: var(--spacing-xl) 0;
-  }
-}
-
-/* Typography Utilities */
-.text-label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-accent);
-  margin-bottom: 0.75rem;
-  display: inline-block;
-}
-
-.text-label.blue-bg {
-  background-color: rgba(201, 162, 39, 0.12);
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-full);
-}
-
-/* Form Elements */
-.input-field {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  background-color: white;
-  color: var(--color-text-main);
-  outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.input-field:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
-}
-
-/* Button Component Styles */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.6rem 1.25rem;
-  border-radius: var(--radius-sm);
-  font-weight: 600;
-  font-size: 0.875rem;
-  transition: all var(--transition-fast);
-}
-
-.btn-primary {
-  background-color: var(--color-accent);
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-accent-hover);
-}
-
-.btn-secondary {
-  background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-}
-
-.btn-dark {
-  background-color: var(--color-surface-dark);
-  color: white;
-}
-
-.btn-dark:hover {
-  background-color: #07142A;
-}
-
-.btn-white {
-  background-color: white;
-  color: var(--color-accent);
-}
-
-.btn-white:hover {
-  background-color: var(--color-surface-light);
-}
-
-.btn-icon {
-  margin-left: 0.5rem;
-  display: inline-flex;
-}
-
-/* Hero Section Overrides */
-.heroSection .heroTitle { color: white !important; }
-.heroSection .heroDesc { color: rgba(255, 255, 255, 0.9) !important; }
-.networkSection-light .heroSection .heroTitle,
-.logisticsSection-light .heroSection .heroTitle,
-.bg-light .heroSection .heroTitle { color: var(--color-primary) !important; }
-.networkSection-light .heroSection .heroDesc,
-.logisticsSection-light .heroSection .heroDesc,
-.bg-light .heroSection .heroDesc { color: var(--color-text-main) !important; }

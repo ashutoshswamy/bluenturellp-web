@@ -11,8 +11,8 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Bluenture LLP | Global Logistics and Trade Network",
-  description: "Bluenture LLP provides seamless end-to-end logistics and commodity sourcing. We connect global markets with integrity, speed, and precision.",
+  title: "Bluenture LLP | Global Trading & Sourcing Partner",
+  description: "Bluenture LLP is a globally focused trading and sourcing company committed to simplifying cross-border commerce. We specialize in reliable procurement, quality assurance, and timely delivery of high-demand commodities.",
 };
 
 export default function RootLayout({
