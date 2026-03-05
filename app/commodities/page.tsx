@@ -1,6 +1,6 @@
 "use client";
 
-import { Leaf, Zap, ShoppingCart, Globe, CheckCircle, Headset } from 'lucide-react';
+import { Leaf, Zap, ShoppingCart, Globe, CheckCircle, Headset, Pickaxe, UtensilsCrossed } from 'lucide-react';
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 
@@ -80,36 +80,52 @@ export default function Commodities() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
           >
-            {/* Agricutural */}
+            {/* Agricultural */}
             <motion.div variants={itemVariants} className="group glass rounded-[2rem] overflow-hidden border border-neutral-200 hover:border-primary-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
               <div className="h-48 bg-neutral-200 relative overflow-hidden">
-                <Image src="/images/agricultural_minimal.png" alt="Agricultural minimal abstraction" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <Image src="/images/agricultural_realistic.png" alt="Agricultural products — grains, pulses, and organic produce" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="p-8 flex-1 flex flex-col">
                 <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-6 shadow-sm border border-emerald-200">
                   <Leaf size={24} />
                 </div>
-                <h3 className="text-2xl font-bold text-neutral-900 mb-4">Agricultural</h3>
+                <h3 className="text-2xl font-bold text-neutral-900 mb-4">Agricultural Products</h3>
                 <p className="text-neutral-600 flex-1 leading-relaxed">
                   Grains, pulses, and organic produce sourced from certified sustainable farms globally.
                 </p>
               </div>
             </motion.div>
 
-            {/* Energy */}
+            {/* Food & Beverages */}
             <motion.div variants={itemVariants} className="group glass rounded-[2rem] overflow-hidden border border-neutral-200 hover:border-primary-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
               <div className="h-48 bg-neutral-200 relative overflow-hidden">
-                <Image src="/images/energy_minimal.png" alt="Energy minimal abstraction" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <Image src="/images/food_beverages_realistic.png" alt="Food and beverages — artisan bread, fruits, olive oil, and coffee" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="p-8 flex-1 flex flex-col">
                 <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-6 shadow-sm border border-amber-200">
-                  <Zap size={24} />
+                  <UtensilsCrossed size={24} />
                 </div>
-                <h3 className="text-2xl font-bold text-neutral-900 mb-4">Energy & Minerals</h3>
+                <h3 className="text-2xl font-bold text-neutral-900 mb-4">Food & Beverages</h3>
                 <p className="text-neutral-600 flex-1 leading-relaxed">
-                  High-grade ores, metallurgical coal, and refined energy solutions for industrial growth.
+                  Premium food products and beverages including oils, coffee, spices, and gourmet specialties.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Raw Materials */}
+            <motion.div variants={itemVariants} className="group glass rounded-[2rem] overflow-hidden border border-neutral-200 hover:border-primary-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
+              <div className="h-48 bg-neutral-200 relative overflow-hidden">
+                <Image src="/images/raw_materials_realistic.png" alt="Raw Materials minimal abstraction" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+              </div>
+              <div className="p-8 flex-1 flex flex-col">
+                <div className="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center mb-6 shadow-sm border border-slate-200">
+                  <Pickaxe size={24} />
+                </div>
+                <h3 className="text-2xl font-bold text-neutral-900 mb-4">Raw Materials</h3>
+                <p className="text-neutral-600 flex-1 leading-relaxed">
+                  High-grade raw materials and industrial supplies supporting robust manufacturing growth operations.
                 </p>
               </div>
             </motion.div>
@@ -117,7 +133,7 @@ export default function Commodities() {
             {/* Consumer Goods */}
             <motion.div variants={itemVariants} className="group glass rounded-[2rem] overflow-hidden border border-neutral-200 hover:border-primary-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
               <div className="h-48 bg-neutral-200 relative overflow-hidden">
-                <Image src="/images/consumer_goods_minimal.png" alt="Consumer goods minimal abstraction" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <Image src="/images/consumer_goods_realistic.png" alt="Consumer goods minimal abstraction" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="p-8 flex-1 flex flex-col">
                 <div className="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-6 shadow-sm border border-indigo-200">

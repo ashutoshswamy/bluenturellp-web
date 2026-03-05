@@ -36,8 +36,8 @@ export default function About() {
               About Bluenture LLP
             </motion.div>
             <motion.h1 variants={itemVariants} className="text-5xl lg:text-7xl font-black text-neutral-900 leading-[1.1] tracking-tight mb-8">
-              Simplifying <br/>
-              <span className="text-gradient">Cross-Border Commerce</span>
+              Global Trade, <br/>
+              <span className="text-gradient">Streamlined</span>
             </motion.h1>
             <motion.p variants={itemVariants} className="text-lg lg:text-xl text-neutral-600 leading-relaxed max-w-xl">
               Bluenture LLP is a globally focused trading and sourcing company committed to simplifying cross-border commerce for businesses worldwide. We specialize in the reliable procurement, quality assurance, and timely delivery of high-demand commodities across international markets.
@@ -50,8 +50,9 @@ export default function About() {
             className="lg:w-1/2 relative w-full min-h-[400px] lg:min-h-[520px] max-w-lg mx-auto"
           >
             <div className="absolute -inset-4 bg-gradient-to-tr from-primary-600 to-primary-400 rounded-[2rem] rotate-3 opacity-15 blur-xl"></div>
-            <div className="absolute inset-0 rounded-[2rem] border border-white/40 shadow-2xl overflow-hidden group">
-              <Image src="/images/cross_border_commerce_minimal.png" alt="Cross-Border Commerce" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" priority />
+            <div className="absolute inset-0 z-10 ring-1 ring-inset ring-black/10 rounded-[2rem]"></div>
+            <div className="absolute inset-0 rounded-[2rem] border border-white/40 shadow-2xl overflow-hidden group flex items-center justify-center bg-white">
+              <Image src="/logo.jpeg" alt="Bluenture LLP Logo" fill className="object-contain transition-transform duration-700 group-hover:scale-105 p-8" sizes="(max-width: 768px) 100vw, 50vw" priority />
             </div>
           </motion.div>
         </div>
@@ -93,17 +94,25 @@ export default function About() {
       </section>
 
       {/* 3. Why Choose Us */}
-      <section className="py-24 bg-neutral-900 relative text-white border-y border-neutral-800">
-        <div className="absolute inset-0 bg-[url('/textures/cubes.png')] opacity-5"></div>
+      {/* 3. Why Choose Us */}
+      <section className="py-24 md:py-32 bg-[#F8FAFC] relative overflow-hidden">
+        {/* Subtle background decoration */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-100/40 to-indigo-100/40 blur-3xl rounded-full mix-blend-multiply" />
+        </div>
+
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            className="text-center max-w-2xl mx-auto mb-20"
           >
-            <h2 className="text-4xl md:text-5xl font-black mb-6">Why Choose Bluenture LLP?</h2>
-            <p className="text-xl text-neutral-400 font-light leading-relaxed">
+            <h2 className="text-sm font-bold tracking-widest text-indigo-600 uppercase mb-4">The Bluenture Advantage</h2>
+            <h3 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+              Why Choose Bluenture LLP?
+            </h3>
+            <p className="text-lg text-slate-600 leading-relaxed font-light">
               With a strong supplier network and a process-driven approach, we help importers and distributors reduce risk, optimize costs, and ensure consistent supply.
             </p>
           </motion.div>
@@ -113,25 +122,58 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto"
           >
-            {[
-              { icon: ShieldCheck, title: "Verified Supplier Network", desc: "We work only with carefully vetted producers and manufacturers to ensure consistent quality and reliable fulfillment.", color: "primary", colSpan: "lg:col-span-2" },
-              { icon: Handshake, title: "End-to-End Trade Support", desc: "From sourcing and quality checks to documentation and logistics coordination, we manage the complete trade lifecycle.", color: "indigo", colSpan: "lg:col-span-1" },
-              { icon: CheckCircle, title: "Quality Assurance", desc: "Each shipment undergoes strict quality verification to meet international standards and buyer specifications.", color: "emerald", colSpan: "lg:col-span-1" },
-              { icon: Eye, title: "Transparent Communication", desc: "Our clients receive regular updates and full visibility throughout the procurement and shipping process.", color: "amber", colSpan: "lg:col-span-2" }
-            ].map((item, idx) => (
-              <motion.div key={idx} variants={itemVariants} className={`glass-dark p-10 rounded-[2rem] group hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 relative overflow-hidden border border-neutral-800 ${item.colSpan}`}>
-                <div className={`absolute top-0 right-0 w-40 h-40 bg-${item.color}-500/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className={`w-16 h-16 rounded-2xl bg-neutral-800/80 backdrop-blur-md border border-neutral-700 flex items-center justify-center text-${item.color}-400 mb-8 group-hover:scale-110 group-hover:bg-${item.color}-500/10 transition-all duration-500 shadow-lg`}>
-                    <item.icon size={32} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-4 tracking-tight text-white">{item.title}</h3>
-                  <p className="text-neutral-400 leading-relaxed text-base font-light max-w-lg mt-auto">{item.desc}</p>
+            {/* Card 1: Verified Supplier Network - Large Left */}
+            <motion.div variants={itemVariants} className="md:col-span-2 group relative overflow-hidden bg-white rounded-[2.5rem] p-10 md:p-14 border border-slate-200/60 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-50/80 to-indigo-50/40 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+              <div className="relative z-10 flex flex-col h-full md:w-3/4">
+                <div className="w-16 h-16 rounded-[1.25rem] bg-blue-50 flex items-center justify-center text-blue-600 mb-8 border border-blue-100 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-sm">
+                  <ShieldCheck size={28} strokeWidth={2} />
                 </div>
-              </motion.div>
-            ))}
+                <h4 className="text-2xl font-bold mb-4 text-slate-900 tracking-tight">Verified Supplier Network</h4>
+                <p className="text-slate-600 leading-relaxed text-lg font-light">We work only with carefully vetted producers and manufacturers to ensure consistent quality and reliable fulfillment for every shipment.</p>
+              </div>
+            </motion.div>
+
+            {/* Card 2: End-to-End Trade Support - Small Right */}
+            <motion.div variants={itemVariants} className="md:col-span-1 group relative overflow-hidden bg-white rounded-[2.5rem] p-10 border border-slate-200/60 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 flex flex-col justify-between">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-50/80 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              <div className="relative z-10">
+                <div className="w-16 h-16 rounded-[1.25rem] bg-emerald-50 flex items-center justify-center text-emerald-600 mb-8 border border-emerald-100 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-500 shadow-sm">
+                  <Handshake size={28} strokeWidth={2} />
+                </div>
+                <h4 className="text-xl font-bold mb-4 text-slate-900 tracking-tight">End-to-End <br/> Trade Support</h4>
+                <p className="text-slate-600 leading-relaxed font-light mt-auto">From sourcing and quality checks to documentation and logistics coordination.</p>
+              </div>
+            </motion.div>
+
+            {/* Card 3: Quality Assurance - Dark Focus Card */}
+            <motion.div variants={itemVariants} className="md:col-span-1 group relative overflow-hidden bg-slate-900 rounded-[2.5rem] p-10 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 flex flex-col justify-between">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              <div className="relative z-10">
+                <div className="w-16 h-16 rounded-[1.25rem] bg-white/10 backdrop-blur-md flex items-center justify-center text-white mb-8 border border-white/10 group-hover:scale-110 group-hover:bg-white group-hover:text-slate-900 transition-all duration-500">
+                  <CheckCircle size={28} strokeWidth={2} />
+                </div>
+                <h4 className="text-xl font-bold mb-4 text-white tracking-tight">Quality Assurance</h4>
+                <p className="text-slate-400 leading-relaxed font-light mt-auto">Each shipment undergoes strict quality verification to meet international buyer standards.</p>
+              </div>
+            </motion.div>
+
+            {/* Card 4: Transparent Communication - Wide Horizontal */}
+            <motion.div variants={itemVariants} className="md:col-span-2 group relative overflow-hidden bg-white rounded-[2.5rem] p-10 md:p-14 border border-slate-200/60 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+              <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-amber-50/80 to-orange-50/40 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 translate-y-1/3 translate-x-1/3 pointer-events-none"></div>
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-8 h-full">
+                <div className="w-20 h-20 shrink-0 rounded-[1.5rem] bg-amber-50 flex items-center justify-center text-amber-600 border border-amber-100 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-white transition-all duration-500 shadow-sm mt-2 md:mt-0">
+                  <Eye size={36} strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h4 className="text-2xl font-bold mb-3 text-slate-900 tracking-tight">Radical Transparency</h4>
+                  <p className="text-slate-600 leading-relaxed text-lg max-w-xl font-light">Our clients receive regular updates and full visibility throughout the procurement and shipping process. No hidden fees, no surprises.</p>
+                </div>
+              </div>
+            </motion.div>
+
           </motion.div>
         </div>
       </section>
@@ -207,9 +249,6 @@ export default function About() {
                 <Link href="/quote" className="w-full sm:w-auto px-8 py-4 bg-white text-primary-900 hover:bg-neutral-100 font-bold rounded-xl shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
                   Request a Quote
                   <Send size={18} />
-                </Link>
-                <Link href="/quote" className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 font-semibold rounded-xl transition-all duration-300 hover:scale-105">
-                  Speak to a Trade Expert
                 </Link>
               </div>
             </div>

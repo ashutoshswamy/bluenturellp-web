@@ -31,7 +31,6 @@ export default function Navbar() {
     { name: "Home", path: "/" },
     { name: "Commodities", path: "/commodities" },
     { name: "Global Trade", path: "/network" },
-    { name: "Logistics", path: "/logistics" },
     { name: "About Us", path: "/about" },
   ];
 
