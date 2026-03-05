@@ -1,7 +1,6 @@
 "use client";
 
-import Link from 'next/link';
-import { ArrowRight, Ship, Plane, FileCheck, Check } from 'lucide-react';
+import { Ship, Plane, FileCheck, Check } from 'lucide-react';
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Leaf, Zap, ShoppingCart, Globe, CheckCircle, Headset, Pickaxe, UtensilsCrossed } from 'lucide-react';
+import { Leaf, ShoppingCart, Globe, CheckCircle, Headset, Pickaxe, UtensilsCrossed } from 'lucide-react';
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 

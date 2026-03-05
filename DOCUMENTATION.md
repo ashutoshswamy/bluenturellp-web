@@ -60,7 +60,7 @@ The root layout wraps every page with:
 
 - **`<Navbar />`** — Persistent top navigation
 - **`<Footer />`** — Persistent footer
-- **Inter font** — Loaded via `next/font/google` and applied to the `<body>`
+- **Typography** — Montserrat (headings) and Source Sans 3 (body) loaded via `next/font/google` and applied globally
 - **Metadata** — SEO title and description set at the layout level
 
 ### Page Routes

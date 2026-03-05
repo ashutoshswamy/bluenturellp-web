@@ -35,7 +35,7 @@ The Bluenture LLP website serves as the digital face of the company — showcasi
 | **Styling** | [Tailwind CSS 4](https://tailwindcss.com/) |
 | **Animations** | [Framer Motion 12](https://www.framer.com/motion/) |
 | **Icons** | [Lucide React](https://lucide.dev/) |
-| **Font** | [Inter](https://fonts.google.com/specimen/Inter) (via `next/font`) |
+| **Fonts** | [Montserrat](https://fonts.google.com/specimen/Montserrat) & [Source Sans 3](https://fonts.google.com/specimen/Source+Sans+3) |
 | **Linting** | [ESLint 9](https://eslint.org/) with `eslint-config-next` |
 
 ---
@@ -77,7 +77,7 @@ bluenturellp-web/
 
 ## 🎨 Design System
 
-- **Primary Font**: Inter (loaded via `next/font/google`)
+- **Typography**: Montserrat for headings, Source Sans 3 for body (loaded via `next/font/google`)
 - **CSS Framework**: Tailwind CSS v4 with PostCSS integration
 - **Animation Library**: Framer Motion for scroll-triggered and page-transition animations
 - **Icon Set**: Lucide React for consistent, lightweight SVG icons
@@ -88,6 +88,15 @@ bluenturellp-web/
 
 - [Documentation](./DOCUMENTATION.md) — Architecture deep-dive, component API, and development guidelines
 - [Security Policy](./SECURITY.md) — Security practices, vulnerability reporting, and data handling
+
+---
+
+## 👨‍💻 Developer Information
+
+- **GitHub:** [ashutoshswami](https://github.com/ashutoshswami)
+- **LinkedIn:** [ashutoshswami](https://linkedin.com/in/ashutoshswami)
+- **Twitter / X:** [@ashutoswami_](https://twitter.com/ashutoswami_)
+- **Support Email:** [ashutoswami397@gmail.com](mailto:ashutoswami397@gmail.com)
 
 ---
 
