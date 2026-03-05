@@ -1,6 +1,6 @@
 "use client";
 
-import { Leaf, ShoppingCart, Globe, CheckCircle, Headset, Pickaxe, UtensilsCrossed } from 'lucide-react';
+import { Leaf, ShoppingCart, Globe, CheckCircle, Pickaxe, UtensilsCrossed } from 'lucide-react';
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 
@@ -159,7 +159,7 @@ export default function Commodities() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center"
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 text-center max-w-4xl mx-auto"
           >
             <motion.div variants={itemVariants} className="flex flex-col items-center">
               <div className="w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-primary-300 mb-6 shadow-xl">
@@ -175,14 +175,6 @@ export default function Commodities() {
               </div>
               <h3 className="text-4xl font-black mb-3">Quality Assured</h3>
               <p className="text-primary-100/70 text-lg">Rigorous inspection and certification for every shipment.</p>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="flex flex-col items-center">
-              <div className="w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-primary-300 mb-6 shadow-xl">
-                <Headset size={40} />
-              </div>
-              <h3 className="text-4xl font-black mb-3">Expert Support</h3>
-              <p className="text-primary-100/70 text-lg">24/7 logistical and commercial advisory services.</p>
             </motion.div>
           </motion.div>
         </div>
