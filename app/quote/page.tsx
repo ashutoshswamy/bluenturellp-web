@@ -37,9 +37,9 @@ export default function Quote() {
               Global Trade Partner
             </motion.div>
             
-            <motion.h1 variants={itemVariants} className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-6">
+            <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-6">
               Request a <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-300 to-indigo-300 italic font-medium opacity-90">Custom Quote</span>
+              Custom Quote
             </motion.h1>
             
             <motion.p variants={itemVariants} className="text-lg lg:text-xl text-primary-100/80 max-w-2xl mx-auto font-light leading-relaxed">

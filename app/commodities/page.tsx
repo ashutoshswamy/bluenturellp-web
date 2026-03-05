@@ -45,9 +45,8 @@ export default function Commodities() {
               <span className="text-xs font-bold tracking-widest text-primary-100 uppercase">Trading Excellence</span>
             </motion.div>
             
-            <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
-              Our Commodities <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-300 to-primary-100 italic font-medium opacity-90">Portfolio</span>
+            <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-black text-white leading-[1.05] tracking-tight mb-6">
+              Our Commodities Portfolio
             </motion.h1>
             
             <motion.p variants={itemVariants} className="text-lg md:text-xl text-primary-100/90 max-w-2xl font-light leading-relaxed">

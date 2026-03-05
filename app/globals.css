@@ -22,6 +22,7 @@
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-spin-reverse: spin-reverse 120s linear infinite;
 }
 
 @layer base {
@@ -71,6 +72,11 @@
 @keyframes pulse-slow {
   0%, 100% { opacity: 1; }
   50% { opacity: .5; }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
 }
 
 /* Custom CSS to hide scrollbar but keep functionality */

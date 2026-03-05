@@ -33,9 +33,9 @@ export default function Network() {
               <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
               Global Operations
             </motion.div>
-            <motion.h1 variants={itemVariants} className="text-5xl lg:text-7xl font-black text-neutral-900 leading-[1.1] tracking-tight mb-8">
+            <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-neutral-900 leading-[1.1] tracking-tight mb-8">
               Global Trade <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-indigo-600">Network</span>
+              Network
             </motion.h1>
             <motion.p variants={itemVariants} className="text-lg lg:text-xl text-neutral-600 leading-relaxed max-w-xl mb-10">
               Connecting markets across continents with reliable sea freight, air transit, and comprehensive trade expertise. We move commodities with precision.
@@ -66,7 +66,7 @@ export default function Network() {
                   src="/images/blue_plexus_globe.png" 
                   alt="Global Trade Network" 
                   fill 
-                  className="object-contain animate-[spin_120s_linear_infinite] drop-shadow-[0_0_40px_rgba(34,211,238,0.2)]" 
+                  className="object-contain animate-spin-reverse drop-shadow-[0_0_40px_rgba(34,211,238,0.2)]" 
                   priority
                 />
               </div>
@@ -109,9 +109,9 @@ export default function Network() {
               <div className="w-14 h-14 rounded-2xl bg-[#131b2b] flex items-center justify-center text-white mb-8 shadow-sm border border-neutral-800">
                 <Ship size={28} strokeWidth={1.5} />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Sea Freight</h3>
+              <h3 className="text-2xl font-bold mb-4 text-white">Ocean Freight</h3>
               <p className="text-neutral-400 mb-8 flex-1 leading-relaxed font-light text-[15px]">
-                Bulk carriers and container shipping for major commodities. We handle full container loads (FCL) and less than container loads (LCL).
+                Navigating the complexities of bulk and container shipping through our trusted global partners. We coordinate FCL and LCL shipments, ensuring your cargo moves efficiently across the water via the world's leading carriers.
               </p>
               <ul className="space-y-4 mb-2 text-neutral-300 text-sm">
                 <li className="flex items-center gap-3">
@@ -133,7 +133,7 @@ export default function Network() {
               </div>
               <h3 className="text-2xl font-bold mb-4 text-white">Air Transit</h3>
               <p className="text-neutral-400 mb-8 flex-1 leading-relaxed font-light text-[15px]">
-                Time-sensitive air cargo solutions for high-value and perishable commodities with global airport-to-airport coverage.
+                When time is your most valuable asset, we orchestrate the fastest routes for your critical cargo. We facilitate specialized handling for perishables and high-security transport for luxury commodities via our global airline partners.
               </p>
               <ul className="space-y-4 mb-2 text-neutral-300 text-sm">
                 <li className="flex items-center gap-3">
@@ -153,9 +153,9 @@ export default function Network() {
               <div className="w-14 h-14 rounded-2xl bg-[#11241f] flex items-center justify-center text-emerald-400 mb-8 shadow-sm border border-emerald-900/30">
                 <FileCheck size={28} strokeWidth={1.5} />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Customs & Clearing</h3>
+              <h3 className="text-2xl font-bold mb-4 text-white">Global Logistics Network</h3>
               <p className="text-neutral-400 mb-8 flex-1 leading-relaxed font-light text-[15px]">
-                Comprehensive customs brokerage and compliance services ensuring smooth cross-border movement of all commodities.
+                Connecting markets across continents through a premier network of sea, air, and customs partners. We move your commodities with precision.
               </p>
               <ul className="space-y-4 mb-2 text-neutral-300 text-sm">
                 <li className="flex items-center gap-3">

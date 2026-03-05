@@ -49,8 +49,8 @@ export default function Home() {
               <span className="text-xs font-bold tracking-widest text-primary-100 uppercase">Global Trading & Sourcing</span>
             </motion.div>
             
-            <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight mb-6">
-              Global Trade, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-300 to-primary-100 italic font-medium opacity-90">Streamlined.</span>
+            <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
+              Global Trade, Streamlined.
             </motion.h1>
             
             <motion.p variants={itemVariants} className="text-lg md:text-xl text-primary-100/80 mb-10 max-w-2xl font-light leading-relaxed">
@@ -265,7 +265,7 @@ export default function Home() {
                     src="/images/blue_plexus_globe.png" 
                     alt="Global Trade Network" 
                     fill 
-                    className="object-contain animate-[spin_120s_linear_infinite] drop-shadow-[0_0_40px_rgba(34,211,238,0.15)]" 
+                    className="object-contain animate-spin-reverse drop-shadow-[0_0_40px_rgba(34,211,238,0.15)]" 
                     priority
                   />
                 </div>
