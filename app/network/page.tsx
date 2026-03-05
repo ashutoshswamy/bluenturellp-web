@@ -33,9 +33,9 @@ export default function Network() {
               <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
               Global Operations
             </motion.div>
-            <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-neutral-900 leading-[1.1] tracking-tight mb-8">
+            <motion.h1 variants={itemVariants} className="text-5xl lg:text-7xl font-black text-neutral-900 leading-[1.1] tracking-tight mb-8">
               Global Trade <br/>
-              Network
+              <span className="text-gradient">Network</span>
             </motion.h1>
             <motion.p variants={itemVariants} className="text-lg lg:text-xl text-neutral-600 leading-relaxed max-w-xl mb-10">
               Connecting markets across continents with reliable sea freight, air transit, and comprehensive trade expertise. We move commodities with precision.
