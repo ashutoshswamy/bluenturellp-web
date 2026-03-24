@@ -33,7 +33,7 @@ Security patches are applied to the latest version only. Always deploy from the 
 If you discover a security vulnerability, please report it responsibly:
 
 1. **Do NOT** open a public GitHub issue
-2. Send a detailed report to **[security@bluenturellp.com](mailto:security@bluenturellp.com)**
+2. Contact via **WhatsApp**: [+91 91460 86655](https://wa.me/919146086655)
 3. Include:
    - Description of the vulnerability
    - Steps to reproduce
@@ -59,19 +59,19 @@ The project leverages Next.js built-in security features:
 - **React Server Components** — Sensitive logic runs on the server, never exposed to the client bundle
 - **Automatic XSS Protection** — React escapes all rendered values by default
 - **CSRF Protection** — Server Actions (if used) include CSRF tokens automatically
-- **No `dangerouslySetInnerHTML`** — All user-facing content is statically defined; no dynamic HTML injection
+- **Minimal `dangerouslySetInnerHTML`** — Used only for JSON-LD structured data (statically defined, no user input)
 
 ### Authentication & Authorization
 
-This is a **public-facing marketing website** with no user authentication system. The quote request form submits data but does not require user accounts.
+This is a **public-facing marketing website** with no user authentication system. The quote request form submits data via WhatsApp and does not require user accounts.
 
 ### Input Validation
 
 The quote request form (`/quote`) implements:
 
-- **Client-side validation** — Required field checks, email format validation, phone number format validation
+- **Client-side validation** — Required field checks, phone number format validation
 - **Type safety** — TypeScript ensures data structures are consistent throughout the application
-- **No raw SQL** — The application does not connect to a database directly; form submissions are handled via external services or API endpoints
+- **No server-side data storage** — Form data is sent directly to WhatsApp; no database or API involved
 
 ---
 
@@ -83,22 +83,31 @@ The quote request form collects:
 
 | Field | Type | Purpose |
 |-------|------|---------|
-| Full Name | Text | Identify the requester |
-| Email Address | Email | Follow-up communication |
-| Contact Number | Phone | Alternative contact method |
-| Commodity of Interest | Text | Understand trade requirements |
-| Message | Text | Additional request details |
+| Company Name | Text | Identify the requesting organization |
+| Contact Number | Phone | Follow-up communication |
+| Commodity Type | Select | Understand trade requirements |
+| Volume | Number | Estimate order size |
+| Port of Origin | Text | Logistics planning |
+| Destination Port | Text | Logistics planning |
+| Special Requirements | Text | Additional request details |
 
 ### Data Protection Principles
 
 1. **Minimization** — Only essential data is collected for trade inquiries
-2. **No client-side storage** — Form data is not stored in `localStorage`, `sessionStorage`, or cookies
-3. **No tracking scripts** — No third-party analytics, pixel trackers, or advertising scripts are installed
+2. **No server-side storage** — Form data is not stored on any server; it is sent directly via WhatsApp
+3. **No client-side storage** — Form data is not stored in `localStorage`, `sessionStorage`, or cookies
 4. **HTTPS only** — All data transmission occurs over TLS-encrypted connections
+
+### Third-Party Scripts
+
+| Script | Purpose | Data Sent |
+|--------|---------|-----------|
+| Google Analytics (GA4) | Site usage analytics | Anonymized page views, device info |
+| WhatsApp (wa.me) | Quote submission | Form data entered by the user |
 
 ### Cookies
 
-The application does **not** set any custom cookies. Standard Next.js/Vercel session cookies may be set by the hosting platform for performance and routing purposes.
+The application does **not** set any custom cookies. Standard Next.js/Vercel session cookies may be set by the hosting platform. Google Analytics may set cookies for visitor tracking (`_ga`, `_gid`).
 
 ---
 
@@ -125,13 +134,8 @@ The application does **not** set any custom cookies. Standard Next.js/Vercel ses
 Run regular security audits:
 
 ```bash
-# Check for known vulnerabilities
 npm audit
-
-# Fix auto-fixable vulnerabilities
 npm audit fix
-
-# View detailed audit report
 npm audit --json
 ```
 
@@ -145,37 +149,23 @@ npm audit --json
 - No external CDNs are used for media assets
 - The `next/image` component applies automatic security headers to optimized images
 
-### External Links
+### External Connections
 
-- External links use `target="_blank"` with implicit `rel="noopener noreferrer"` (React default for new windows)
-- No external scripts are loaded from third-party origins
+| Domain | Purpose |
+|--------|---------|
+| `www.googletagmanager.com` | Google Analytics script |
+| `wa.me` | WhatsApp quote submission |
+| `fonts.googleapis.com` | Font loading (Poppins) |
 
-### Recommended Headers
+### Security Headers
 
-When deploying, configure the following HTTP security headers (via `next.config.ts` or hosting platform):
+Configured in `next.config.ts`:
 
-```typescript
-// next.config.ts
-const nextConfig = {
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          { key: 'X-Frame-Options', value: 'DENY' },
-          { key: 'X-Content-Type-Options', value: 'nosniff' },
-          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload',
-          },
-        ],
-      },
-    ];
-  },
-};
-```
+- `X-Frame-Options: DENY`
+- `X-Content-Type-Options: nosniff`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy: camera=(), microphone=(), geolocation=()`
+- `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`
 
 ---
 
@@ -185,21 +175,17 @@ const nextConfig = {
 
 - **No secrets are committed** to the repository
 - Use `.env.local` for local development secrets (already in `.gitignore`)
-- Production secrets should be configured via the hosting platform's environment variable management (e.g., Vercel dashboard)
+- Production secrets should be configured via the hosting platform's environment variable management
 
 ### Build Security
 
 - The `npm run build` command performs static analysis and type-checking
 - ESLint rules catch common security anti-patterns
-- The React Compiler (`babel-plugin-react-compiler`) optimizes but does not alter security boundaries
 
 ### Access Control
 
 - Repository access should be limited to authorized team members only
-- Branch protection rules should be enabled on `main`:
-  - Require pull request reviews
-  - Require status checks (lint, build) to pass
-  - No force pushes
+- Branch protection rules should be enabled on `main`
 
 ---
 

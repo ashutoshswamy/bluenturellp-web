@@ -10,7 +10,7 @@
 
 ## 🌐 Overview
 
-The Bluenture LLP website serves as the digital face of the company — showcasing services, commodities, logistics capabilities, and a global supplier network. It enables prospective clients to learn about the company's offerings and request trade quotations.
+The Bluenture LLP website serves as the digital face of the company — showcasing services, commodities, logistics capabilities, and a global supplier network. It enables prospective clients to learn about the company's offerings and request trade quotations via WhatsApp.
 
 ### Key Pages
 
@@ -19,9 +19,8 @@ The Bluenture LLP website serves as the digital face of the company — showcasi
 | **Home** | `/` | Hero section, services overview, and call-to-action |
 | **About** | `/about` | Company mission, vision, values, and team |
 | **Commodities** | `/commodities` | Product catalogue of traded commodities |
-| **Logistics** | `/logistics` | Supply chain and logistics capabilities |
 | **Network** | `/network` | Global trade network and partnerships |
-| **Quote** | `/quote` | Request-a-quote form for prospective clients |
+| **Quote** | `/quote` | Request-a-quote form with WhatsApp submission |
 
 ---
 
@@ -35,7 +34,8 @@ The Bluenture LLP website serves as the digital face of the company — showcasi
 | **Styling** | [Tailwind CSS 4](https://tailwindcss.com/) |
 | **Animations** | [Framer Motion 12](https://www.framer.com/motion/) |
 | **Icons** | [Lucide React](https://lucide.dev/) |
-| **Fonts** | [Montserrat](https://fonts.google.com/specimen/Montserrat) & [Source Sans 3](https://fonts.google.com/specimen/Source+Sans+3) |
+| **Fonts** | [Poppins](https://fonts.google.com/specimen/Poppins) (via `next/font/google`) |
+| **Analytics** | [Google Analytics 4](https://analytics.google.com/) (G-VD8CNZDGNY) |
 | **Linting** | [ESLint 9](https://eslint.org/) with `eslint-config-next` |
 
 ---
@@ -45,42 +45,72 @@ The Bluenture LLP website serves as the digital face of the company — showcasi
 ```
 bluenturellp-web/
 ├── app/
-│   ├── layout.tsx          # Root layout (Navbar + Footer wrapper)
-│   ├── page.tsx            # Home page
-│   ├── globals.css         # Global styles
-│   ├── about/page.tsx      # About Us page
-│   ├── commodities/page.tsx# Commodities page
-│   ├── logistics/page.tsx  # Logistics page
-│   ├── network/page.tsx    # Network page
-│   └── quote/page.tsx      # Request a Quote page
+│   ├── layout.tsx              # Root layout (metadata, JSON-LD, GA4, Navbar + Footer)
+│   ├── page.tsx                # Home page (Server Component — metadata export)
+│   ├── HomeContent.tsx         # Home page UI (Client Component)
+│   ├── globals.css             # Global styles
+│   ├── sitemap.ts              # Dynamic sitemap generator (/sitemap.xml)
+│   ├── robots.ts               # Dynamic robots.txt generator (/robots.txt)
+│   ├── about/
+│   │   ├── page.tsx            # About — Server Component (metadata)
+│   │   └── AboutContent.tsx    # About — Client Component (UI)
+│   ├── commodities/
+│   │   ├── page.tsx            # Commodities — Server Component (metadata)
+│   │   └── CommoditiesContent.tsx
+│   ├── network/
+│   │   ├── page.tsx            # Network — Server Component (metadata)
+│   │   └── NetworkContent.tsx
+│   └── quote/
+│       ├── page.tsx            # Quote — Server Component (metadata)
+│       └── QuoteContent.tsx    # Quote form with WhatsApp submission
 ├── components/
-│   ├── Navbar.tsx           # Site-wide navigation bar
-│   ├── Footer.tsx           # Site-wide footer
+│   ├── Navbar.tsx              # Site-wide navigation bar
+│   ├── Footer.tsx              # Site-wide footer (phone + WhatsApp)
 │   └── animations/
-│       ├── FadeIn.tsx       # Fade-in animation wrapper
-│       ├── SlideUp.tsx      # Slide-up animation wrapper
-│       └── Stagger.tsx      # Staggered children animation
+│       ├── FadeIn.tsx
+│       ├── SlideUp.tsx
+│       └── Stagger.tsx
 ├── public/
-│   ├── images/              # Static images
-│   ├── videos/              # Static videos
-│   ├── logo.jpeg            # Company logo
-│   └── favicon.ico          # Favicon & PWA icons
+│   ├── images/                 # Static images
+│   ├── videos/                 # Static videos
+│   ├── logo.jpeg               # Company logo
+│   ├── site.webmanifest        # PWA manifest
+│   └── favicon.ico             # Favicon & PWA icons
 ├── package.json
 ├── tsconfig.json
-├── next.config.ts
+├── next.config.ts              # Security headers config
 ├── postcss.config.mjs
-├── eslint.config.mjs
-└── tailwind.config.ts (v4 — zero-config)
+└── eslint.config.mjs
 ```
+
+---
+
+## 🔍 SEO Architecture
+
+The site uses a **Server/Client Component split** for full SEO support:
+
+- **`page.tsx`** files are **Server Components** that export `Metadata` objects (title, description, Open Graph, Twitter cards, canonical URLs)
+- **`*Content.tsx`** files are **Client Components** (`"use client"`) containing the interactive UI
+- **Root `layout.tsx`** defines `metadataBase`, title templates (`%s | Bluenture LLP`), JSON-LD structured data (`Organization` + `WebSite` schemas), and Google Analytics
+- **`sitemap.ts`** generates `/sitemap.xml` dynamically with all page routes
+- **`robots.ts`** generates `/robots.txt` allowing all crawlers
 
 ---
 
 ## 🎨 Design System
 
-- **Typography**: Montserrat for headings, Source Sans 3 for body (loaded via `next/font/google`)
+- **Typography**: Poppins (weights 300–700) loaded via `next/font/google`
 - **CSS Framework**: Tailwind CSS v4 with PostCSS integration
 - **Animation Library**: Framer Motion for scroll-triggered and page-transition animations
 - **Icon Set**: Lucide React for consistent, lightweight SVG icons
+
+---
+
+## 📞 Contact Integration
+
+- **Phone**: +91 91460 86655
+- **WhatsApp**: [wa.me/919146086655](https://wa.me/919146086655)
+- **Quote Form**: Submits a formatted WhatsApp message with all trade details (company, commodity, volume, ports, special requirements)
 
 ---
 
