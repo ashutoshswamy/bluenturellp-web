@@ -71,6 +71,17 @@ export default function Footer() {
         
         <div className="mt-16 pt-8 border-t border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-neutral-500">
           <p>&copy; {currentYear} BLUENTURE LLP. ALL RIGHTS RESERVED.</p>
+          <p>
+            Made by{" "}
+            <a
+              href="https://anahat-entertainment.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-white transition-colors"
+            >
+              Anahat Entertainment
+            </a>
+          </p>
         </div>
       </div>
     </footer>
