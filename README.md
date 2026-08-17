@@ -32,9 +32,10 @@ The Bluenture LLP website serves as the digital face of the company — showcasi
 | **UI Library** | [React 19](https://react.dev/) |
 | **Language** | [TypeScript 5](https://www.typescriptlang.org/) |
 | **Styling** | [Tailwind CSS 4](https://tailwindcss.com/) |
-| **Animations** | [Framer Motion 12](https://www.framer.com/motion/) |
+| **Animations** | [GSAP 3](https://gsap.com/) + `@gsap/react` (hero drop-in, scroll rail) · [Framer Motion 12](https://www.framer.com/motion/) (in-view reveals) |
+| **Globe** | [cobe](https://cobe.vercel.app/) (WebGL network globe) |
 | **Icons** | [Lucide React](https://lucide.dev/) |
-| **Fonts** | [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) (via `next/font/google`) |
+| **Fonts** | [DM Sans](https://fonts.google.com/specimen/DM+Sans) (via `next/font/google`) |
 | **Analytics** | [Google Analytics 4](https://analytics.google.com/) (G-VD8CNZDGNY) |
 | **Linting** | [ESLint 9](https://eslint.org/) with `eslint-config-next` |
 
@@ -48,7 +49,7 @@ bluenturellp-web/
 │   ├── layout.tsx              # Root layout (metadata, JSON-LD, GA4, Navbar + Footer)
 │   ├── page.tsx                # Home page (Server Component — metadata export)
 │   ├── HomeContent.tsx         # Home page UI (Client Component)
-│   ├── globals.css             # Global styles
+│   ├── globals.css             # Global styles + loading-screen/keyframe animations
 │   ├── sitemap.ts              # Dynamic sitemap generator (/sitemap.xml)
 │   ├── robots.ts               # Dynamic robots.txt generator (/robots.txt)
 │   ├── about/
@@ -64,18 +65,19 @@ bluenturellp-web/
 │       ├── page.tsx            # Quote — Server Component (metadata)
 │       └── QuoteContent.tsx    # Quote form with WhatsApp submission
 ├── components/
-│   ├── Navbar.tsx              # Site-wide navigation bar
-│   ├── Footer.tsx              # Site-wide footer (phone + WhatsApp)
-│   └── animations/
-│       ├── FadeIn.tsx
-│       ├── SlideUp.tsx
-│       └── Stagger.tsx
+│   ├── Navbar.tsx               # Site-wide navigation bar
+│   ├── Footer.tsx                # Site-wide footer (phone + WhatsApp)
+│   ├── LoadingScreen.tsx         # Brand splash screen shown on first load
+│   ├── HeroGsapController.tsx    # Code-split GSAP/ScrollTrigger driver for the home hero + scroll rail
+│   └── ui/
+│       └── cobe-globe.tsx        # WebGL network globe (cobe), used on the Network page
 ├── public/
-│   ├── images/                 # Static images
-│   ├── videos/                 # Static videos
-│   ├── logo.jpeg               # Company logo
-│   ├── site.webmanifest        # PWA manifest
-│   └── favicon.ico             # Favicon & PWA icons
+│   ├── images/                  # Static images
+│   ├── textures/                # Background texture assets
+│   ├── container1.png / container2.png  # Hero drop-in container art
+│   ├── logo.jpeg                # Company logo
+│   ├── site.webmanifest         # PWA manifest
+│   └── favicon.ico              # Favicon & PWA icons
 ├── package.json
 ├── tsconfig.json
 ├── next.config.ts              # Security headers config
@@ -99,9 +101,9 @@ The site uses a **Server/Client Component split** for full SEO support:
 
 ## 🎨 Design System
 
-- **Typography**: Space Grotesk loaded via `next/font/google`
+- **Typography**: DM Sans loaded via `next/font/google`
 - **CSS Framework**: Tailwind CSS v4 with PostCSS integration
-- **Animation Library**: Framer Motion for scroll-triggered and page-transition animations
+- **Animation Libraries**: GSAP (`HeroGsapController.tsx`) drives the home hero drop-in and the Expertise scroll rail; Framer Motion drives `whileInView` reveals on the other pages; plain CSS keyframes drive the `LoadingScreen`
 - **Icon Set**: Lucide React for consistent, lightweight SVG icons
 
 ---

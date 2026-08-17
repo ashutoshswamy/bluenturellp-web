@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-space-grotesk), "Space Grotesk", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-display: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  
+  --font-sans: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-dm-sans), "DM Sans", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-display: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
   --color-primary-900: #0B2F5B;
   --color-primary-800: #154E8A;
   --color-primary-700: #1E6FB8;
@@ -23,6 +24,9 @@
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-spin-reverse: spin-reverse 120s linear infinite;
+  --animate-orbit-spin: orbit-spin 36s linear infinite;
+  --animate-orbit-spin-reverse: orbit-spin-reverse 36s linear infinite;
+  --animate-marquee: marquee 32s linear infinite;
 }
 
 @layer base {
@@ -30,11 +34,11 @@
     @apply border-neutral-200;
   }
   html, body {
-    font-family: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
     @apply bg-neutral-50 text-neutral-900 antialiased selection:bg-primary-500/20 selection:text-primary-900;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
   }
 }
 
@@ -78,6 +82,56 @@
 @keyframes spin-reverse {
   from { transform: rotate(360deg); }
   to { transform: rotate(0deg); }
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-spin-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes loading-ship {
+  0% { transform: scale(0.35); opacity: 1; }
+  92% { transform: scale(2.75); opacity: 1; }
+  100% { transform: scale(2.75); opacity: 0; }
+}
+
+@keyframes loading-bar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@keyframes loading-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.animate-loading-ship {
+  animation-name: loading-ship;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.animate-loading-bar {
+  animation-name: loading-bar;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.animate-loading-out {
+  animation-name: loading-out;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  pointer-events: none;
 }
 
 /* Custom CSS to hide scrollbar but keep functionality */

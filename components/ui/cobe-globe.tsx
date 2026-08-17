@@ -196,6 +196,10 @@ export function Globe({
     })
 
     function animate() {
+      if (document.hidden) {
+        animationId = requestAnimationFrame(animate)
+        return
+      }
       if (!isPausedRef.current) {
         phi += speed
         if (

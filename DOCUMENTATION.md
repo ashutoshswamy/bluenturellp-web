@@ -33,6 +33,7 @@ The application follows the **Next.js App Router** architecture. All routes are 
 │  │  layout.tsx (Root Layout)         │  │
 │  │  ├── Google Analytics (GA4)       │  │
 │  │  ├── JSON-LD Structured Data      │  │
+│  │  ├── <LoadingScreen />            │  │
 │  │  ├── <Navbar />                   │  │
 │  │  ├── <main>{children}</main>      │  │
 │  │  └── <Footer />                   │  │
@@ -53,7 +54,9 @@ The application follows the **Next.js App Router** architecture. All routes are 
 ├─────────────────────────────────────────┤
 │  Static Assets: /public                 │
 │  Styles: Tailwind CSS v4 + globals.css  │
-│  Animations: Framer Motion              │
+│  Animations: GSAP (hero/rail) +         │
+│    Framer Motion (in-view reveals) +    │
+│    CSS keyframes (loading screen)       │
 └─────────────────────────────────────────┘
 ```
 
@@ -68,7 +71,8 @@ The root layout wraps every page with:
 - **Google Analytics** — GA4 tracking via `next/script` (`afterInteractive` strategy)
 - **JSON-LD** — `Organization` + `WebSite` structured data for rich search results
 - **Metadata** — `metadataBase`, title template (`%s | Bluenture LLP`), keywords, Open Graph, Twitter cards, robots directives, icons, manifest
-- **Typography** — Space Grotesk loaded via `next/font/google`
+- **Typography** — DM Sans loaded via `next/font/google`
+- **`<LoadingScreen />`** — Brand splash shown on first load, wraps everything below
 - **`<Navbar />`** — Persistent top navigation
 - **`<Footer />`** — Persistent footer with phone and WhatsApp links
 
@@ -139,13 +143,20 @@ Every page includes:
 - Hidden on the `/quote` page
 - Consistent across all other pages
 
-### Animation Components (`components/animations/`)
+#### `LoadingScreen.tsx`
+- Brand splash screen shown on first load, wraps `<Navbar />` / `<main>` / `<Footer />` in `layout.tsx`
+- Ship icon scale + progress bar are driven by CSS keyframes (`animate-loading-ship` / `-bar` / `-out` in `globals.css`), not per-frame React state — keeps the main thread free during hydration
+- A `setInterval` (10/sec, not `requestAnimationFrame`) only updates the numeric `%` label
+- Dispatches a `site:loaded` window event when done, which `HomeContent.tsx` listens for to kick off the hero drop-in
 
-| Component | File | Purpose |
-|-----------|------|---------|
-| `FadeIn` | `FadeIn.tsx` | Fades an element in from transparent to opaque |
-| `SlideUp` | `SlideUp.tsx` | Slides an element upward while fading in |
-| `Stagger` | `Stagger.tsx` | Staggers the animation of child elements sequentially |
+#### `HeroGsapController.tsx`
+- All GSAP / ScrollTrigger / `@gsap/react` logic for the home page, code-split out of `HomeContent.tsx` via `next/dynamic({ ssr: false })`
+- Animates the hero container drop-in + idle bounce, and the Expertise section's scroll-scrubbed rail fill/highlight
+- Mounted only after hydration so the ~144KB GSAP chunk never blocks first paint or competes with hydration on cold load
+
+#### `ui/cobe-globe.tsx`
+- WebGL network globe (`cobe`) used on the Home and Network pages, lazy-mounted via `IntersectionObserver`
+- Pauses its animation loop when the tab is backgrounded (`document.hidden`)
 
 ---
 
@@ -168,21 +179,30 @@ The project uses **Tailwind CSS v4** with PostCSS integration. Tailwind v4 uses 
 
 ## Animations
 
-The project uses **Framer Motion** for all animations. Key patterns:
+The project splits animation work across three tools, each used where it fits best:
 
-### Scroll-Triggered Animations
+### GSAP (`HeroGsapController.tsx`)
 
-Most page sections use the animation wrapper components (`FadeIn`, `SlideUp`, `Stagger`) combined with Framer Motion's `whileInView` prop for viewport-triggered animations.
+- Drives the home hero's container drop-in/idle-bounce timeline and the Expertise section's `ScrollTrigger`-scrubbed rail
+- Code-split via `next/dynamic({ ssr: false })` so the GSAP/ScrollTrigger/`@gsap/react` bundle loads after hydration instead of blocking it
+- `useGSAP` scopes tweens to refs passed down from `HomeContent.tsx`; cleanup is automatic on unmount
 
-### Page-Level Animations
+### Framer Motion
 
-Pages use `motion` components and `Variants` from Framer Motion to define complex entrance animations with staggered children.
+- Used on every other page (`AboutContent`, `CommoditiesContent`, `NetworkContent`, `QuoteContent`, `Navbar`) for section entrances
+- Pattern: `motion` components + `Variants`, `initial`/`whileInView`/`animate`, staggered children via `staggerChildren`
+
+### CSS Keyframes (`LoadingScreen.tsx` / `globals.css`)
+
+- The first-load splash screen's ship-scale, progress-bar fill, and fade-out are plain `@keyframes` (`loading-ship`, `loading-bar`, `loading-out`), not React state or `requestAnimationFrame`
+- Keeps the main thread free for hydration + the GSAP chunk load during the exact window the splash is visible
 
 ### Best Practices
 
-1. **Use wrapper components** — Prefer `<FadeIn>`, `<SlideUp>`, `<Stagger>` over raw `motion.*` elements
-2. **Performance** — Use `viewport={{ once: true }}` to prevent re-triggering on scroll
+1. **Prefer transform/opacity** — GPU-accelerated properties only where animation runs every frame (scroll-linked, continuous loops)
+2. **Performance** — Use `viewport={{ once: true }}` on Framer Motion `whileInView` to prevent re-triggering on scroll
 3. **Reduced motion** — Framer Motion automatically respects `prefers-reduced-motion`
+4. **Don't drive continuous visual state from React `setState` in a `requestAnimationFrame` loop** — it re-renders on every frame and competes with hydration/other JS on the main thread; prefer CSS animations, or throttle state updates (e.g. `setInterval` at 10/sec) when only a low-frequency readout (like a `%` label) needs React
 
 ---
 
@@ -190,11 +210,15 @@ Pages use `motion` components and `Variants` from Framer Motion to define comple
 
 ### `/public/images/`
 
-Contains all static images used across the site (hero backgrounds, about page photos, commodity images, etc.).
+Contains category imagery used across the site (`agricultural_realistic.png`, `raw_materials_realistic.png`, `food_beverages_realistic.png`, `consumer_goods_realistic.png`).
 
-### `/public/videos/`
+### `/public/textures/`
 
-Contains video files used in hero sections or backgrounds.
+Background texture assets (e.g. `cubes.png`) used as low-opacity section backdrops.
+
+### `/public/container1.png`, `/public/container2.png`
+
+Shipping-container art used in the home hero's GSAP drop-in animation.
 
 ### Favicons & PWA
 

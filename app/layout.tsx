@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { DM_Sans, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import LoadingScreen from "@/components/LoadingScreen";
 
-const spaceGrotesk = Space_Grotesk({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["500"],
+  variable: "--font-ibm-plex-mono",
   display: "swap",
 });
 
@@ -60,9 +68,9 @@ export const metadata: Metadata = {
     url: "https://bluenturellp.com",
     images: [
       {
-        url: "/logo.jpeg",
-        width: 800,
-        height: 600,
+        url: "/og-image.png",
+        width: 1731,
+        height: 909,
         alt: "Bluenture LLP — Global Trading & Sourcing",
       },
     ],
@@ -72,7 +80,7 @@ export const metadata: Metadata = {
     title: "Bluenture LLP | Global Trading & Sourcing Partner",
     description:
       "Simplifying cross-border commerce with reliable procurement, quality assurance, and timely delivery of commodities worldwide.",
-    images: ["/logo.jpeg"],
+    images: ["/og-image.png"],
   },
   icons: {
     icon: [
@@ -133,7 +141,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={spaceGrotesk.variable}>
+    <html lang="en" className={`${dmSans.variable} ${ibmPlexMono.variable}`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-VD8CNZDGNY"
@@ -148,14 +156,16 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
+      <body className={`${dmSans.variable} ${ibmPlexMono.variable} font-sans antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <LoadingScreen>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </LoadingScreen>
       </body>
     </html>
   );

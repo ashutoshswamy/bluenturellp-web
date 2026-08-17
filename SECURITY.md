@@ -126,6 +126,8 @@ The application does **not** set any custom cookies. Standard Next.js/Vercel ses
 | `next` | 16.1.6 | Low | Framework — actively maintained by Vercel |
 | `react` / `react-dom` | 19.2.3 | Low | Core UI library — maintained by Meta |
 | `framer-motion` | 12.34.3 | Low | Animation library — no network access |
+| `gsap` / `@gsap/react` | 3.15.0 / 2.1.2 | Low | Animation library (hero + scroll rail) — no network access |
+| `cobe` | 2.0.1 | Low | WebGL globe renderer (Canvas API only) — no network access |
 | `lucide-react` | 0.575.0 | Low | SVG icon components — no network access |
 | `tailwindcss` | 4.x | Low | CSS utility framework — build-time only |
 
@@ -155,7 +157,7 @@ npm audit --json
 |--------|---------|
 | `www.googletagmanager.com` | Google Analytics script |
 | `wa.me` | WhatsApp quote submission |
-| `fonts.googleapis.com` | Font loading (Space Grotesk) |
+| `fonts.googleapis.com` | Font loading (DM Sans) |
 
 ### Security Headers
 

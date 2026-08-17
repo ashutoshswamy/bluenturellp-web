@@ -2,24 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const isActive = (path: string) => {
     if (path === '/' && pathname !== '/') return false;
@@ -38,14 +28,8 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={`fixed z-50 transition-all duration-500 ease-in-out left-1/2 -translate-x-1/2 w-[95%] max-w-7xl rounded-full border ${
-          scrolled 
-            ? "top-4 py-3 bg-white/90 backdrop-blur-lg shadow-lg border-neutral-200/50" 
-            : "top-6 py-4 bg-white/70 backdrop-blur-lg shadow-md border-neutral-200/30"
-        }`}
-      >
-        <div className="px-6 flex items-center justify-between w-full">
+      <header className="fixed top-4 md:top-6 inset-x-0 z-50 px-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between w-full bg-white/80 backdrop-blur-xl border border-neutral-200/70 rounded-full shadow-lg shadow-neutral-900/5 px-5 py-3 lg:px-6">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-10 h-10 overflow-hidden rounded-full shadow-md transition-transform duration-300 group-hover:scale-105 border-2 border-neutral-200">
               <Image 
@@ -112,7 +96,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-white pt-24 pb-6 px-6 flex flex-col shadow-2xl"
+            className="fixed inset-0 z-40 bg-white pt-28 pb-6 px-6 flex flex-col shadow-2xl"
           >
             <nav className="flex flex-col gap-6 text-xl font-medium">
               {navLinks.map((link, i) => (

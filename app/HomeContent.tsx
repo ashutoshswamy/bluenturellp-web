@@ -1,74 +1,145 @@
 "use client";
 
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useRef, useState, useEffect, SyntheticEvent } from 'react';
 import { ArrowRight, Globe as GlobeIcon, CheckCircle, ShieldCheck, Eye, Handshake, Sprout, UtensilsCrossed, Package, Pickaxe } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { Globe } from '@/components/ui/cobe-globe';
+import type { gsap } from 'gsap';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
-gsap.registerPlugin(useGSAP);
+// Code-split + mount only once scrolled near — this globe is a WebGL canvas
+// with an 18-marker/9-arc render loop that otherwise starts fighting the
+// hero's GSAP drop-in animation for the main thread on every cold load,
+// even though it's off-screen at that point.
+const Globe = dynamic(() => import('@/components/ui/cobe-globe').then((m) => m.Globe), { ssr: false });
+
+// gsap + ScrollTrigger + @gsap/react is ~144K of JS. Statically importing it
+// here put it in this page's hydration-critical bundle: on a cold reload the
+// browser has to fetch/parse/execute that chunk before hydration completes,
+// competing on the main thread with the very drop-in animation it drives —
+// that's the "smooth on client nav, laggy on hard reload" split (client nav
+// reuses the already-parsed chunk). Deferring it to its own dynamically
+// loaded chunk lets the server-rendered hero markup (unaffected — still in
+// the initial HTML, no CLS/SEO cost) hydrate first.
+const HeroGsapController = dynamic(() => import('@/components/HeroGsapController'), { ssr: false });
+
+type ExpertiseItem = {
+  code: string;
+  icon: typeof Sprout;
+  title: string;
+  desc: string;
+  image: string;
+};
+
+const expertiseItems: ExpertiseItem[] = [
+  {
+    code: 'AGR · 01',
+    icon: Sprout,
+    title: 'Agricultural Products',
+    desc: 'Premium grains, pulses, and organic produce sourced directly from certified sustainable farms.',
+    image: '/images/agricultural_realistic.png',
+  },
+  {
+    code: 'F&B · 02',
+    icon: UtensilsCrossed,
+    title: 'Food & Beverages',
+    desc: 'High-quality food commodities built for distributors and institutional buyers.',
+    image: '/images/food_beverages_realistic.png',
+  },
+  {
+    code: 'CNG · 03',
+    icon: Package,
+    title: 'Consumer Goods',
+    desc: 'Fast-moving consumer goods and household essentials for retail networks worldwide.',
+    image: '/images/consumer_goods_realistic.png',
+  },
+  {
+    code: 'RAW · 04',
+    icon: Pickaxe,
+    title: 'Raw Materials',
+    desc: 'High-grade raw materials supporting industrial and manufacturing operations across borders.',
+    image: '/images/raw_materials_realistic.png',
+  },
+];
 
 export default function HomeContent() {
   const heroSectionRef = useRef<HTMLElement>(null);
   const leftContainerRef = useRef<HTMLDivElement>(null);
   const rightContainerRef = useRef<HTMLDivElement>(null);
-  const rightContainer2Ref = useRef<HTMLDivElement>(null);
-  const leftContainer2Ref = useRef<HTMLDivElement>(null);
   const heroTextRef = useRef<HTMLDivElement>(null);
+  const journeyRef = useRef<HTMLDivElement>(null);
+  const expertiseCardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const railRef = useRef<HTMLDivElement | null>(null);
+  const tlRef = useRef<ReturnType<typeof gsap.timeline> | null>(null);
+  const loadedCountRef = useRef(0);
+  const CONTAINER_IMAGE_COUNT = 2;
 
-  useGSAP(
-    () => {
-      const containers = [
-        rightContainerRef.current,
-        leftContainerRef.current,
-        rightContainer2Ref.current,
-        leftContainer2Ref.current,
-      ];
+  // Containers should only drop once the LoadingScreen has actually revealed
+  // the site — otherwise they animate in behind the loading overlay and the
+  // user never sees the drop. heroReadyRef flips true once both the images
+  // are decoded and the loading screen has fired its "site:loaded" event;
+  // HeroGsapController checks it on mount to cover the race where that
+  // happens before the (dynamically imported) controller is even mounted.
+  const siteLoadedRef = useRef(false);
+  const heroReadyRef = useRef(false);
 
-      // GPU hint only while the drop is in flight; stripped on completion
-      // so it doesn't sit on four static elements for the rest of the page.
-      gsap.set(containers, { willChange: 'transform, opacity' });
+  const globeSectionRef = useRef<HTMLDivElement>(null);
+  const [showGlobe, setShowGlobe] = useState(false);
 
-      const tl = gsap.timeline({
-        onComplete: () => gsap.set(containers, { clearProps: 'willChange' }),
-      });
+  useEffect(() => {
+    const el = globeSectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowGlobe(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
-      tl.fromTo(
-        rightContainerRef.current,
-        { y: -500, opacity: 0, rotate: 12 },
-        { y: 0, opacity: 1, rotate: 4, duration: 1.4, ease: 'power4.out' },
-        0.1
-      )
-        .fromTo(
-          leftContainerRef.current,
-          { y: -500, opacity: 0, rotate: -12 },
-          { y: 0, opacity: 1, rotate: -4, duration: 1.4, ease: 'power4.out' },
-          0.25
-        )
-        .fromTo(
-          rightContainer2Ref.current,
-          { y: -500, opacity: 0, rotate: 10 },
-          { y: 0, opacity: 1, rotate: 5, duration: 1.4, ease: 'power4.out' },
-          0.4
-        )
-        .fromTo(
-          leftContainer2Ref.current,
-          { y: -500, opacity: 0, rotate: -10 },
-          { y: 0, opacity: 1, rotate: -5, duration: 1.4, ease: 'power4.out' },
-          0.55
-        )
-        .fromTo(
-          heroTextRef.current,
-          { y: 24, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' },
-          0.8
-        );
-    },
-    { scope: heroSectionRef }
-  );
+  useEffect(() => {
+    const onSiteLoaded = () => {
+      siteLoadedRef.current = true;
+      if (loadedCountRef.current >= CONTAINER_IMAGE_COUNT) {
+        heroReadyRef.current = true;
+        tlRef.current?.play();
+      } else {
+        // Safety net: don't leave the hero blank forever if an image stalls.
+        setTimeout(() => {
+          heroReadyRef.current = true;
+          tlRef.current?.play();
+        }, 1500);
+      }
+    };
+    window.addEventListener('site:loaded', onSiteLoaded);
+    return () => window.removeEventListener('site:loaded', onSiteLoaded);
+  }, []);
+
+  // 'load' fires once bytes are fetched, but the browser may still decode
+  // the bitmap on first paint — synchronously, on the main thread, right as
+  // GSAP starts animating transform. That's the stutter on reload. Forcing
+  // decode() here moves that cost off the animation's critical path.
+  const handleContainerImageLoad = (e: SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget;
+    const markLoaded = () => {
+      loadedCountRef.current += 1;
+      if (loadedCountRef.current >= CONTAINER_IMAGE_COUNT && siteLoadedRef.current) {
+        heroReadyRef.current = true;
+        tlRef.current?.play();
+      }
+    };
+    if (typeof img.decode === 'function') {
+      img.decode().then(markLoaded).catch(markLoaded);
+    } else {
+      markLoaded();
+    }
+  };
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -90,64 +161,42 @@ export default function HomeContent() {
         {/* Dropping container images */}
         <div
           ref={rightContainerRef}
-          className="hidden md:block absolute -right-[128px] lg:-right-[176px] top-40 lg:top-48 w-[320px] lg:w-[440px] origin-top opacity-0 pointer-events-none select-none z-10"
+          className="hidden md:block absolute -right-[128px] lg:-right-[176px] top-56 lg:top-64 w-[320px] lg:w-[440px] origin-top opacity-0 pointer-events-none select-none z-10"
         >
           <Image
             src="/container2.png"
             alt="Shipping container"
             width={1672}
             height={941}
+            sizes="440px"
             className="w-full h-auto"
             priority
+            onLoad={handleContainerImageLoad}
           />
         </div>
         <div
           ref={leftContainerRef}
-          className="hidden md:block absolute -left-[128px] lg:-left-[168px] top-56 lg:top-64 w-[320px] lg:w-[420px] origin-top opacity-0 pointer-events-none select-none z-10"
+          className="hidden md:block absolute -left-[128px] lg:-left-[168px] top-72 lg:top-80 w-[320px] lg:w-[420px] origin-top opacity-0 pointer-events-none select-none z-10"
         >
           <Image
             src="/container1.png"
             alt="Shipping container"
             width={1774}
             height={887}
+            sizes="420px"
             className="w-full h-auto"
             priority
-          />
-        </div>
-        <div
-          ref={rightContainer2Ref}
-          className="hidden md:block absolute -right-[120px] lg:-right-[160px] top-[384px] lg:top-[490px] w-[300px] lg:w-[400px] origin-top opacity-0 pointer-events-none select-none"
-        >
-          <Image
-            src="/container4.png"
-            alt="Shipping container"
-            width={1774}
-            height={887}
-            className="w-full h-auto"
-            priority
-          />
-        </div>
-        <div
-          ref={leftContainer2Ref}
-          className="hidden md:block absolute -left-[112px] lg:-left-[152px] top-[424px] lg:top-[516px] w-[280px] lg:w-[380px] origin-top opacity-0 pointer-events-none select-none"
-        >
-          <Image
-            src="/container3.png"
-            alt="Shipping container"
-            width={1672}
-            height={941}
-            className="w-full h-auto"
-            priority
+            onLoad={handleContainerImageLoad}
           />
         </div>
 
         <div ref={heroTextRef} className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center opacity-0">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-neutral-900 leading-[1.05] tracking-tight mb-6">
-            Precision-Driven Delivery,<br />Anytime, Anywhere
+            Sourcing, Simplified.<br />Delivered Globally.
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-500 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-            From sourcing to shipment, Bluenture LLP delivers reliable trading and logistics solutions for high-demand commodities, on time, every time.
+            Reliable commodity trading, without the friction.
           </p>
 
           <Link
@@ -160,15 +209,26 @@ export default function HomeContent() {
             </span>
           </Link>
 
-          <p className="mt-14 text-sm font-medium text-neutral-400 tracking-wide">
-            Trusted by 500+ Enterprise Partners Worldwide
-          </p>
+          <div className="mt-14 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-neutral-500">
+            <div className="flex items-center gap-2">
+              <ShieldCheck size={16} className="text-primary-500" />
+              <span className="text-sm font-medium">Quality-assured sourcing</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <GlobeIcon size={16} className="text-primary-500" />
+              <span className="text-sm font-medium">Cross-border logistics</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Handshake size={16} className="text-primary-500" />
+              <span className="text-sm font-medium">Trusted trade partners</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* 2. Our Expertise Section - Bento Grid */}
+      {/* 2. Our Expertise Section — commodity manifest ledger */}
       <section className="py-24 md:py-32 bg-neutral-50 relative" aria-label="Our Expertise">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -176,7 +236,7 @@ export default function HomeContent() {
             className="mb-16 md:flex justify-between items-end gap-8"
           >
             <div>
-              <span className="text-primary-600 font-bold tracking-widest text-sm uppercase mb-3 block">Our Expertise</span>
+              <span className="font-mono text-primary-600 font-medium tracking-[0.2em] text-xs uppercase mb-3 block">Our Expertise</span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-neutral-900 tracking-tight leading-[1.05]">
                 Reliable Sourcing for<br />Global Markets
               </h2>
@@ -186,61 +246,55 @@ export default function HomeContent() {
             </p>
           </motion.div>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
-            {/* Bento Card 1 - Large */}
-            <motion.div variants={itemVariants} className="md:col-span-2 group overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[380px]">
-              <div className="relative h-56 w-full overflow-hidden bg-neutral-100">
-                <Image src="/images/agricultural_realistic.png" alt="Agricultural Products — grains, pulses, and organic produce for global export" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              </div>
-              <div className="p-8 flex-1 flex flex-col justify-start">
-                <div className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center mb-5"><Sprout size={22} /></div>
-                <h3 className="text-2xl font-black text-neutral-900 tracking-tight mb-3">Agricultural Products</h3>
-                <p className="text-neutral-500 font-light leading-relaxed max-w-lg">Premium grains, pulses, and organic produce sourced directly from certified sustainable farms tailored for global export.</p>
-              </div>
-            </motion.div>
+          <div ref={journeyRef} className="relative">
+            {/* Cargo rail — track + scroll-filled progress, standing in for the manifest's paper trail. Desktop only. */}
+            <div className="hidden md:block absolute left-0 top-2 bottom-2 w-px bg-neutral-200" aria-hidden="true"></div>
+            <div
+              ref={railRef}
+              className="hidden md:block absolute left-0 top-2 bottom-2 w-px bg-primary-500 origin-top"
+              style={{ transform: 'scaleY(0)' }}
+              aria-hidden="true"
+            ></div>
 
-            {/* Bento Card 2 */}
-            <motion.div variants={itemVariants} className="group overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[380px]">
-              <div className="relative h-56 w-full overflow-hidden bg-neutral-100">
-                <Image src="/images/food_beverages_realistic.png" alt="Food and beverages — oils, coffee, spices, and gourmet specialties" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              </div>
-              <div className="p-8 flex-1 flex flex-col justify-start">
-                <div className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center mb-5"><UtensilsCrossed size={22} /></div>
-                <h3 className="text-xl font-black text-neutral-900 tracking-tight mb-3">Food & Beverages</h3>
-                <p className="text-neutral-500 font-light text-sm leading-relaxed">High-quality food commodities built for distributors and institutional buyers.</p>
-              </div>
-            </motion.div>
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              className="relative z-10"
+            >
+              {expertiseItems.map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  ref={(el) => { expertiseCardRefs.current[i] = el; }}
+                  variants={itemVariants}
+                  className="group relative grid grid-cols-[auto_1fr] md:grid-cols-[100px_1fr_auto] items-center gap-x-6 gap-y-4 border-b border-dashed border-neutral-300 last:border-b-0 border-l-2 border-l-transparent pl-6 md:pl-12 pr-2 py-10 md:py-12 transition-colors duration-300"
+                >
+                  {/* Rail checkpoint dot */}
+                  <span className="rail-dot hidden md:block absolute -left-[5px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full border-2 border-neutral-300 bg-neutral-50 transition-colors duration-300"></span>
 
-            {/* Bento Card 3 */}
-            <motion.div variants={itemVariants} className="group overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[380px]">
-              <div className="relative h-56 w-full overflow-hidden bg-neutral-100">
-                <Image src="/images/consumer_goods_realistic.png" alt="Consumer goods — household essentials for retail networks worldwide" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              </div>
-              <div className="p-8 flex-1 flex flex-col justify-start">
-                <div className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center mb-5"><Package size={22} /></div>
-                <h3 className="text-xl font-black text-neutral-900 tracking-tight mb-3">Consumer Goods</h3>
-                <p className="text-neutral-500 font-light text-sm leading-relaxed">Fast-moving consumer goods and household essentials for retail networks worldwide.</p>
-              </div>
-            </motion.div>
+                  <div className="hidden md:flex flex-col gap-3 items-start">
+                    <div className="w-11 h-11 rounded-full bg-neutral-900 text-white flex items-center justify-center">
+                      <item.icon size={20} />
+                    </div>
+                  </div>
 
-            {/* Bento Card 4 - Large */}
-            <motion.div variants={itemVariants} className="md:col-span-2 group overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[380px]">
-              <div className="relative h-56 w-full overflow-hidden bg-neutral-100">
-                <Image src="/images/raw_materials_realistic.png" alt="Raw materials — industrial supplies for manufacturing operations" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              </div>
-              <div className="p-8 flex-1 flex flex-col justify-start">
-                <div className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center mb-5"><Pickaxe size={22} /></div>
-                <h3 className="text-2xl font-black text-neutral-900 tracking-tight mb-3">Raw Materials</h3>
-                <p className="text-neutral-500 font-light leading-relaxed max-w-lg">High-grade raw materials supporting robust industrial and manufacturing growth operations across borders.</p>
-              </div>
+                  <div className="col-start-1 md:col-start-2 row-start-1 md:row-start-auto flex md:hidden items-center gap-3 mb-1">
+                    <div className="w-10 h-10 shrink-0 rounded-full bg-neutral-900 text-white flex items-center justify-center"><item.icon size={18} /></div>
+                  </div>
+
+                  <div className="col-span-2 md:col-span-1">
+                    <h3 className="text-2xl md:text-3xl font-black text-neutral-900 tracking-tight mb-2">{item.title}</h3>
+                    <p className="text-neutral-500 font-light text-sm md:text-base leading-relaxed max-w-md">{item.desc}</p>
+                  </div>
+
+                  <div className="col-span-2 md:col-span-1 relative w-full md:w-40 h-40 md:h-32 rounded-xl overflow-hidden bg-neutral-100 border border-dashed border-neutral-300">
+                    <Image src={item.image} alt={`${item.title} — sourced and shipped by Bluenture LLP`} fill sizes="(min-width: 768px) 160px, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Full Width CTA Banner — mirrors the hero button: dark surface, pill CTA, blue circular arrow */}
           <motion.div
@@ -248,7 +302,7 @@ export default function HomeContent() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
-            className="w-full mt-6 relative overflow-hidden rounded-2xl bg-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-6 p-10 md:p-12"
+            className="w-full mt-16 md:mt-20 relative overflow-hidden rounded-2xl bg-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-6 p-10 md:p-12"
           >
             <div className="relative z-10">
               <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-3">Looking for tailored commodities?</h3>
@@ -355,9 +409,9 @@ export default function HomeContent() {
               {/* Pulsing accent ring */}
               <div className="absolute w-[360px] h-[360px] md:w-[500px] md:h-[500px] rounded-full border border-cyan-500/20 m-auto animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite] opacity-20"></div>
 
-              <div className="relative w-full max-w-[480px] aspect-square group [mask-image:radial-gradient(circle,white_45%,transparent_72%)]">
+              <div ref={globeSectionRef} className="relative w-full max-w-[480px] aspect-square group [mask-image:radial-gradient(circle,white_45%,transparent_72%)]">
                 <div className="absolute inset-0 opacity-90 group-hover:opacity-100 transition-opacity duration-700 drop-shadow-[0_0_40px_rgba(34,211,238,0.15)]">
-                  <Globe
+                  {showGlobe && <Globe
                     markers={[
                       { id: "mumbai", location: [19.076, 72.8777], label: "Mumbai" },
                       { id: "dubai", location: [25.2048, 55.2708], label: "Dubai" },
@@ -405,7 +459,7 @@ export default function HomeContent() {
                     dark={1}
                     mapBrightness={6}
                     diffuse={1.2}
-                  />
+                  />}
                 </div>
               </div>
             </motion.div>
@@ -461,72 +515,160 @@ export default function HomeContent() {
         </div>
       </section>
 
-      {/* 4. The Bluenture Advantage */}
-      <section className="py-24 bg-white" aria-label="Why Choose Bluenture">
+      {/* 4. The Bluenture Advantage — presented as a verification ledger, not a card grid */}
+      <section className="py-24 md:py-32 bg-white" aria-label="Why Choose Bluenture">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-primary-600 font-bold tracking-widest text-sm uppercase mb-3 block">Why Choose Bluenture</span>
-            <h2 className="text-4xl md:text-5xl font-black text-neutral-900 tracking-tight">
-              Why Global Businesses <br/><span className="text-gradient">Trust Us</span>
-            </h2>
-          </div>
-          
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
-            {[
-              { icon: ShieldCheck, title: "Verified Network", desc: "We work only with carefully vetted producers to ensure absolute consistent quality." },
-              { icon: Handshake, title: "End-to-End Support", desc: "From sourcing and quality checks to documentation and final logistics coordination." },
-              { icon: CheckCircle, title: "Quality Assurance", desc: "Each shipment undergoes strict quality verification to meet exact international standards." },
-              { icon: Eye, title: "Full Transparency", desc: "Regular updates, live tracking visibility, and open communication throughout the process." }
-            ].map((feature, idx) => (
-              <motion.div 
-                key={idx}
-                variants={itemVariants}
-                className="group p-8 rounded-3xl bg-neutral-50 shadow-sm border border-neutral-100 hover:bg-white hover:shadow-xl hover:border-primary-100 transition-all duration-300 relative overflow-hidden"
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+
+            {/* Left: intro */}
+            <div className="lg:col-span-5">
+              <div className="lg:sticky lg:top-32">
+                <h2 className="text-4xl md:text-5xl font-black text-neutral-900 tracking-tight leading-[1.05] mb-6">
+                  Trusted by<br /><span className="text-gradient">Global Buyers</span>
+                </h2>
+                <p className="text-neutral-500 font-light text-lg leading-relaxed max-w-sm">
+                  Every claim below is backed by process, not promises — the same checks a buyer runs before signing.
+                </p>
+              </div>
+            </div>
+
+            {/* Right: verification ledger */}
+            <div className="lg:col-span-7">
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                className="border-t border-neutral-200"
               >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary-100 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="w-14 h-14 rounded-2xl bg-white shadow-md border border-neutral-100 flex items-center justify-center text-primary-600 mb-6 group-hover:scale-110 group-hover:text-primary-500 transition-all duration-300 relative z-10">
-                  <feature.icon size={28} strokeWidth={1.5} />
-                </div>
-                <h3 className="text-xl font-bold text-neutral-900 mb-3 relative z-10">{feature.title}</h3>
-                <p className="text-neutral-600 leading-relaxed relative z-10">{feature.desc}</p>
+                {[
+                  { icon: ShieldCheck, title: "Verified Network", desc: "We work only with carefully vetted producers to ensure absolute consistent quality." },
+                  { icon: Handshake, title: "End-to-End Support", desc: "From sourcing and quality checks to documentation and final logistics coordination." },
+                  { icon: CheckCircle, title: "Quality Assurance", desc: "Each shipment undergoes strict quality verification to meet exact international standards." },
+                  { icon: Eye, title: "Full Transparency", desc: "Regular updates, live tracking visibility, and open communication throughout the process." }
+                ].map((feature, idx) => (
+                  <motion.div
+                    key={idx}
+                    variants={itemVariants}
+                    className="group grid grid-cols-[1fr_auto] items-start gap-5 sm:gap-8 py-8 px-2 -mx-2 rounded-lg border-b border-neutral-200 hover:bg-primary-50/40 transition-colors duration-300"
+                  >
+                    <div>
+                      <h3 className="text-xl font-bold text-neutral-900 mb-2">{feature.title}</h3>
+                      <p className="text-neutral-500 font-light leading-relaxed">{feature.desc}</p>
+                    </div>
+                    <feature.icon
+                      className="text-neutral-300 group-hover:text-primary-500 group-hover:scale-110 transition-all duration-300 shrink-0 mt-1"
+                      size={22}
+                      strokeWidth={1.5}
+                    />
+                  </motion.div>
+                ))}
               </motion.div>
-            ))}
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* 5. Bottom CTA Banner */}
-      <section className="py-24 bg-neutral-50 relative p-6" aria-label="Call to Action">
-        <div className="max-w-6xl mx-auto">
-          <motion.div 
+      {/* 5. Bottom CTA — framed as the shipping manifest for the buyer's own trade route */}
+      <section className="py-24 md:py-32 bg-neutral-50 relative" aria-label="Call to Action">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-[2.5rem] bg-neutral-900 px-8 py-20 text-center shadow-2xl glass-dark border border-neutral-800"
+            className="relative overflow-hidden rounded-[2rem] bg-neutral-900 border border-neutral-800 shadow-2xl grid grid-cols-1 lg:grid-cols-[1fr_auto]"
           >
-            {/* Abstract glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary-600/30 rounded-full blur-[100px] opacity-50 pointer-events-none"></div>
-            
-            <div className="relative z-10 max-w-3xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-black text-white mb-6">Ready to streamline your global sourcing?</h2>
-              <p className="text-xl text-neutral-300 mb-10 font-light">
-                Connect with our trade specialists today to discuss your specific requirements and receive a tailored quotation.
+            {/* Abstract glow, kept subtle behind the copy only */}
+            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary-600/20 rounded-full blur-[120px] opacity-60 pointer-events-none"></div>
+
+            {/* Left: copy + CTA, left-aligned */}
+            <div className="relative z-10 px-8 py-16 md:px-14 md:py-20">
+              <span className="font-mono text-primary-400 text-xs tracking-[0.2em] uppercase mb-5 block">Ready to Ship</span>
+              <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-[1.05] max-w-lg">
+                Your next shipment starts here.
+              </h2>
+              <p className="text-lg text-neutral-400 mb-10 font-light max-w-md leading-relaxed">
+                Tell us the route and the commodity — our trade specialists handle sourcing, quality checks, and delivery from there.
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/quote" target="_blank" className="w-full sm:w-auto px-8 py-4 bg-white text-neutral-900 hover:bg-neutral-100 font-bold rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:-translate-y-1">
-                  Request a Quote
-                </Link>
+              <Link href="/quote" target="_blank" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-neutral-900 hover:bg-neutral-100 font-bold rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:-translate-y-1">
+                Request a Quote
+                <ArrowRight size={18} />
+              </Link>
+            </div>
+
+            {/* Right: manifest stub — boarding-pass-style ticket, torn from the CTA panel */}
+            <div className="relative z-10 flex items-center justify-center px-8 py-12 lg:w-80 lg:border-l border-dashed border-neutral-700">
+              {/* Perforation cutouts on the seam, desktop only */}
+              <div className="hidden lg:block absolute -left-3 top-0 w-6 h-6 rounded-full bg-neutral-50"></div>
+              <div className="hidden lg:block absolute -left-3 bottom-0 w-6 h-6 rounded-full bg-neutral-50"></div>
+
+              <div className="w-full max-w-[240px] lg:max-w-none font-mono text-neutral-500">
+                <div className="flex items-start justify-between mb-6">
+                  <div>
+                    <div className="text-[10px] tracking-[0.2em] uppercase mb-2">Manifest No.</div>
+                    <div className="text-xl text-white tracking-wide">BLU-000-GLB</div>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-primary-500/40 bg-primary-500/10 px-2.5 py-1 text-[9px] font-bold tracking-[0.15em] uppercase text-primary-400">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary-400"></span>
+                    Confirmed
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between text-[11px] text-neutral-400 mb-2">
+                  <span>ORIGIN</span>
+                  <GlobeIcon size={14} className="text-primary-400" />
+                  <span>MARKET</span>
+                </div>
+                <div className="flex items-center gap-2 text-white text-sm font-bold tracking-wide mb-6">
+                  <span>SRC</span>
+                  <span className="flex-1 border-t border-dashed border-neutral-700"></span>
+                  <span>YOU</span>
+                </div>
+
+                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.15em] border-t border-dashed border-neutral-700 pt-4 mb-6">
+                  <div>
+                    <div className="mb-1 text-neutral-500">Class</div>
+                    <div className="text-neutral-300 font-bold">Priority</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="mb-1 text-neutral-500">Issued</div>
+                    <div className="text-neutral-300 font-bold">On Request</div>
+                  </div>
+                </div>
+
+                {/* Barcode texture */}
+                <div
+                  className="h-8 w-full opacity-70"
+                  style={{
+                    backgroundImage:
+                      'repeating-linear-gradient(90deg, currentColor 0px, currentColor 2px, transparent 2px, transparent 5px, currentColor 5px, currentColor 6px, transparent 6px, transparent 10px)',
+                    color: 'var(--color-neutral-400)',
+                  }}
+                  aria-hidden="true"
+                ></div>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* Rendered last on purpose. React attaches refs and fires layout effects
+          in a single depth-first commit pass, so a controller placed above the
+          elements it animates runs its useGSAP before their refs are attached —
+          gsap.set(null) then throws. Mounting it after every target it touches
+          (hero containers, hero text, journey/squiggle) guarantees the refs are
+          populated by the time its effects run. */}
+      <HeroGsapController
+        heroSectionRef={heroSectionRef}
+        rightContainerRef={rightContainerRef}
+        leftContainerRef={leftContainerRef}
+        heroTextRef={heroTextRef}
+        tlRef={tlRef}
+        heroReadyRef={heroReadyRef}
+        journeyRef={journeyRef}
+        expertiseCardRefs={expertiseCardRefs}
+        railRef={railRef}
+      />
     </div>
   );
 }

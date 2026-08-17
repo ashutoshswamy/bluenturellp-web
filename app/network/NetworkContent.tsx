@@ -1,8 +1,8 @@
 "use client";
 
 import { Ship, Plane, FileCheck, Check } from 'lucide-react';
-import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
+import { Globe } from '@/components/ui/cobe-globe';
 
 export default function NetworkContent() {
   const containerVariants: Variants = {
@@ -29,10 +29,6 @@ export default function NetworkContent() {
             variants={containerVariants}
             className="lg:w-1/2"
           >
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100 border border-primary-200 mb-6 font-bold text-xs tracking-widest text-primary-700 uppercase shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
-              Global Operations
-            </motion.div>
             <motion.h1 variants={itemVariants} className="text-5xl lg:text-7xl font-black text-neutral-900 leading-[1.1] tracking-tight mb-8">
               Global Trade <br/>
               <span className="text-gradient">Network</span>
@@ -46,32 +42,65 @@ export default function NetworkContent() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:w-1/2 relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl border border-neutral-800 bg-[#060B14] flex items-center justify-center"
+            className="lg:w-1/2 relative w-full lg:h-[550px] flex items-center justify-center"
           >
-            {/* Layered glows behind globe */}
-            <div className="absolute inset-0 bg-cyan-500/10 rounded-full blur-[100px] animate-pulse-slow max-w-[400px] max-h-[400px] m-auto"></div>
-            <div className="absolute inset-0 bg-blue-600/10 rounded-full blur-[70px] max-w-[300px] max-h-[300px] m-auto"></div>
-            
-            {/* Concentric rings */}
-            <div className="absolute w-[280px] h-[280px] md:w-[380px] md:h-[380px] rounded-full border border-cyan-500/10 m-auto"></div>
-            <div className="absolute w-[360px] h-[360px] md:w-[480px] md:h-[480px] rounded-full border border-slate-700/30 m-auto"></div>
-            <div className="absolute w-[440px] h-[440px] md:w-[600px] md:h-[600px] rounded-full border border-slate-700/15 m-auto"></div>
-            
-            {/* Pulsing accent ring */}
-            <div className="absolute w-[320px] h-[320px] md:w-[440px] md:h-[440px] rounded-full border border-cyan-500/20 m-auto animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite] opacity-20"></div>
+            {/* Layered glows behind globe — no ring outlines on this light bg, they read as clutter instead of depth */}
+            <div className="absolute inset-0 bg-cyan-500/20 rounded-full blur-[110px] animate-pulse-slow max-w-[440px] max-h-[440px] m-auto"></div>
+            <div className="absolute inset-0 bg-blue-600/15 rounded-full blur-[80px] max-w-[340px] max-h-[340px] m-auto"></div>
 
             <div className="relative w-full max-w-[420px] aspect-square group [mask-image:radial-gradient(circle,white_45%,transparent_72%)]">
-              <div className="absolute inset-0 opacity-90 group-hover:opacity-100 transition-opacity duration-700">
-                <Image 
-                  src="/images/blue_plexus_globe.png" 
-                  alt="Global Trade Network" 
-                  fill 
-                  className="object-contain animate-spin-reverse drop-shadow-[0_0_40px_rgba(34,211,238,0.2)]" 
-                  priority
+              <div className="absolute inset-0 opacity-90 group-hover:opacity-100 transition-opacity duration-700 drop-shadow-[0_0_40px_rgba(34,211,238,0.15)]">
+                <Globe
+                  markers={[
+                    { id: "mumbai", location: [19.076, 72.8777], label: "Mumbai" },
+                    { id: "dubai", location: [25.2048, 55.2708], label: "Dubai" },
+                    { id: "singapore", location: [1.3521, 103.8198], label: "Singapore" },
+                    { id: "london", location: [51.5074, -0.1278], label: "London" },
+                    { id: "newyork", location: [40.7128, -74.006], label: "New York" },
+                    { id: "shanghai", location: [31.2304, 121.4737], label: "Shanghai" },
+                    { id: "rotterdam", location: [51.9244, 4.4777], label: "Rotterdam" },
+                    { id: "capetown", location: [-33.9249, 18.4241], label: "Cape Town" },
+                    { id: "sydney", location: [-33.8688, 151.2093], label: "Sydney" },
+                    { id: "saopaulo", location: [-23.5505, -46.6333], label: "São Paulo" },
+                    { id: "tokyo", location: [35.6762, 139.6503], label: "Tokyo" },
+                    { id: "istanbul", location: [41.0082, 28.9784], label: "Istanbul" },
+                    { id: "hongkong", location: [22.3193, 114.1694], label: "Hong Kong" },
+                    { id: "losangeles", location: [34.0522, -118.2437], label: "Los Angeles" },
+                    { id: "hamburg", location: [53.5511, 9.9937], label: "Hamburg" },
+                    { id: "lagos", location: [6.5244, 3.3792], label: "Lagos" },
+                    { id: "jakarta", location: [-6.2088, 106.8456], label: "Jakarta" },
+                    { id: "riyadh", location: [24.7136, 46.6753], label: "Riyadh" },
+                  ]}
+                  arcs={[
+                    { id: "mumbai-dubai", from: [19.076, 72.8777], to: [25.2048, 55.2708] },
+                    { id: "mumbai-singapore", from: [19.076, 72.8777], to: [1.3521, 103.8198] },
+                    { id: "dubai-london", from: [25.2048, 55.2708], to: [51.5074, -0.1278] },
+                    { id: "london-newyork", from: [51.5074, -0.1278], to: [40.7128, -74.006] },
+                    { id: "singapore-shanghai", from: [1.3521, 103.8198], to: [31.2304, 121.4737] },
+                    { id: "mumbai-shanghai", from: [19.076, 72.8777], to: [31.2304, 121.4737] },
+                    { id: "london-rotterdam", from: [51.5074, -0.1278], to: [51.9244, 4.4777] },
+                    { id: "dubai-capetown", from: [25.2048, 55.2708], to: [-33.9249, 18.4241] },
+                    { id: "singapore-sydney", from: [1.3521, 103.8198], to: [-33.8688, 151.2093] },
+                    { id: "newyork-saopaulo", from: [40.7128, -74.006], to: [-23.5505, -46.6333] },
+                    { id: "shanghai-tokyo", from: [31.2304, 121.4737], to: [35.6762, 139.6503] },
+                    { id: "dubai-istanbul", from: [25.2048, 55.2708], to: [41.0082, 28.9784] },
+                    { id: "shanghai-hongkong", from: [31.2304, 121.4737], to: [22.3193, 114.1694] },
+                    { id: "newyork-losangeles", from: [40.7128, -74.006], to: [34.0522, -118.2437] },
+                    { id: "rotterdam-hamburg", from: [51.9244, 4.4777], to: [53.5511, 9.9937] },
+                    { id: "dubai-lagos", from: [25.2048, 55.2708], to: [6.5244, 3.3792] },
+                    { id: "singapore-jakarta", from: [1.3521, 103.8198], to: [-6.2088, 106.8456] },
+                    { id: "dubai-riyadh", from: [25.2048, 55.2708], to: [24.7136, 46.6753] },
+                  ]}
+                  baseColor={[0.06, 0.09, 0.16]}
+                  markerColor={[0.13, 0.83, 0.93]}
+                  arcColor={[0.13, 0.83, 0.93]}
+                  glowColor={[0.13, 0.6, 0.93]}
+                  dark={1}
+                  mapBrightness={6}
+                  diffuse={1.2}
                 />
               </div>
             </div>
-            <div className="absolute inset-0 z-10 ring-1 ring-inset ring-white/5 rounded-[2rem] pointer-events-none"></div>
           </motion.div>
         </div>
       </section>
