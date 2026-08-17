@@ -13,6 +13,14 @@ export const metadata: Metadata = {
     description:
       "Connecting markets across continents with reliable sea freight, air transit, and comprehensive trade expertise.",
     url: "https://bluenturellp.com/network",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1731,
+        height: 909,
+        alt: "Bluenture LLP — Global Trading & Sourcing",
+      },
+    ],
   },
   twitter: {
     title: "Global Trade Network — Bluenture LLP",

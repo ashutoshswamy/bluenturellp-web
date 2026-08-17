@@ -13,6 +13,14 @@ export const metadata: Metadata = {
     description:
       "Connecting global markets with premium essential resources across key industrial sectors. Agricultural products, food, raw materials, and consumer goods.",
     url: "https://bluenturellp.com/commodities",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1731,
+        height: 909,
+        alt: "Bluenture LLP — Global Trading & Sourcing",
+      },
+    ],
   },
   twitter: {
     title: "Commodities Portfolio — Bluenture LLP",

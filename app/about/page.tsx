@@ -13,6 +13,14 @@ export const metadata: Metadata = {
     description:
       "A globally focused trading and sourcing company committed to simplifying cross-border commerce for businesses worldwide.",
     url: "https://bluenturellp.com/about",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1731,
+        height: 909,
+        alt: "Bluenture LLP — Global Trading & Sourcing",
+      },
+    ],
   },
   twitter: {
     title: "About Bluenture LLP — Our Mission, Vision & Values",

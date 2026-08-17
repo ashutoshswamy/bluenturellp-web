@@ -13,6 +13,14 @@ export const metadata: Metadata = {
     description:
       "Get a personalized proposal tailored to your trade requirements. Response within 24 hours.",
     url: "https://bluenturellp.com/quote",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1731,
+        height: 909,
+        alt: "Bluenture LLP — Global Trading & Sourcing",
+      },
+    ],
   },
   twitter: {
     title: "Request a Custom Quote — Bluenture LLP",
