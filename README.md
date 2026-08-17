@@ -34,7 +34,7 @@ The Bluenture LLP website serves as the digital face of the company — showcasi
 | **Styling** | [Tailwind CSS 4](https://tailwindcss.com/) |
 | **Animations** | [Framer Motion 12](https://www.framer.com/motion/) |
 | **Icons** | [Lucide React](https://lucide.dev/) |
-| **Fonts** | [Poppins](https://fonts.google.com/specimen/Poppins) (via `next/font/google`) |
+| **Fonts** | [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) (via `next/font/google`) |
 | **Analytics** | [Google Analytics 4](https://analytics.google.com/) (G-VD8CNZDGNY) |
 | **Linting** | [ESLint 9](https://eslint.org/) with `eslint-config-next` |
 
@@ -99,7 +99,7 @@ The site uses a **Server/Client Component split** for full SEO support:
 
 ## 🎨 Design System
 
-- **Typography**: Poppins (weights 300–700) loaded via `next/font/google`
+- **Typography**: Space Grotesk loaded via `next/font/google`
 - **CSS Framework**: Tailwind CSS v4 with PostCSS integration
 - **Animation Library**: Framer Motion for scroll-triggered and page-transition animations
 - **Icon Set**: Lucide React for consistent, lightweight SVG icons

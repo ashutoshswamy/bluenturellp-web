@@ -155,7 +155,7 @@ npm audit --json
 |--------|---------|
 | `www.googletagmanager.com` | Google Analytics script |
 | `wa.me` | WhatsApp quote submission |
-| `fonts.googleapis.com` | Font loading (Poppins) |
+| `fonts.googleapis.com` | Font loading (Space Grotesk) |
 
 ### Security Headers
 

@@ -68,7 +68,7 @@ The root layout wraps every page with:
 - **Google Analytics** — GA4 tracking via `next/script` (`afterInteractive` strategy)
 - **JSON-LD** — `Organization` + `WebSite` structured data for rich search results
 - **Metadata** — `metadataBase`, title template (`%s | Bluenture LLP`), keywords, Open Graph, Twitter cards, robots directives, icons, manifest
-- **Typography** — Poppins (weights 300–700) loaded via `next/font/google`
+- **Typography** — Space Grotesk loaded via `next/font/google`
 - **`<Navbar />`** — Persistent top navigation
 - **`<Footer />`** — Persistent footer with phone and WhatsApp links
 
