@@ -1,11 +1,75 @@
 "use client";
 
 import Link from 'next/link';
-import { ArrowRight, Globe, CheckCircle, ShieldCheck, Eye, Handshake, Sprout, UtensilsCrossed, Package, Pickaxe } from 'lucide-react';
+import { useRef } from 'react';
+import { ArrowRight, Globe as GlobeIcon, CheckCircle, ShieldCheck, Eye, Handshake, Sprout, UtensilsCrossed, Package, Pickaxe } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { Globe } from '@/components/ui/cobe-globe';
 import Image from 'next/image';
 
+gsap.registerPlugin(useGSAP);
+
 export default function HomeContent() {
+  const heroSectionRef = useRef<HTMLElement>(null);
+  const leftContainerRef = useRef<HTMLDivElement>(null);
+  const rightContainerRef = useRef<HTMLDivElement>(null);
+  const rightContainer2Ref = useRef<HTMLDivElement>(null);
+  const leftContainer2Ref = useRef<HTMLDivElement>(null);
+  const heroTextRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const containers = [
+        rightContainerRef.current,
+        leftContainerRef.current,
+        rightContainer2Ref.current,
+        leftContainer2Ref.current,
+      ];
+
+      // GPU hint only while the drop is in flight; stripped on completion
+      // so it doesn't sit on four static elements for the rest of the page.
+      gsap.set(containers, { willChange: 'transform, opacity' });
+
+      const tl = gsap.timeline({
+        onComplete: () => gsap.set(containers, { clearProps: 'willChange' }),
+      });
+
+      tl.fromTo(
+        rightContainerRef.current,
+        { y: -500, opacity: 0, rotate: 12 },
+        { y: 0, opacity: 1, rotate: 4, duration: 1.4, ease: 'power4.out' },
+        0.1
+      )
+        .fromTo(
+          leftContainerRef.current,
+          { y: -500, opacity: 0, rotate: -12 },
+          { y: 0, opacity: 1, rotate: -4, duration: 1.4, ease: 'power4.out' },
+          0.25
+        )
+        .fromTo(
+          rightContainer2Ref.current,
+          { y: -500, opacity: 0, rotate: 10 },
+          { y: 0, opacity: 1, rotate: 5, duration: 1.4, ease: 'power4.out' },
+          0.4
+        )
+        .fromTo(
+          leftContainer2Ref.current,
+          { y: -500, opacity: 0, rotate: -10 },
+          { y: 0, opacity: 1, rotate: -5, duration: 1.4, ease: 'power4.out' },
+          0.55
+        )
+        .fromTo(
+          heroTextRef.current,
+          { y: 24, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out' },
+          0.8
+        );
+    },
+    { scope: heroSectionRef }
+  );
+
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -22,61 +86,90 @@ export default function HomeContent() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* 1. Hero Section */}
-      <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden pt-20" aria-label="Hero">
-        <div className="absolute inset-0 z-0">
-          <video 
-            className="w-full h-full object-cover"
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-          >
-            <source src="/videos/hero.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-primary-900/60 mix-blend-multiply"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/80 via-transparent to-neutral-50/20 md:to-neutral-50/30"></div>
+      <section ref={heroSectionRef} className="relative min-h-[85vh] md:min-h-[820px] lg:min-h-[900px] flex flex-col items-center justify-center overflow-hidden pt-32 pb-32 bg-neutral-50" aria-label="Hero">
+        {/* Dropping container images */}
+        <div
+          ref={rightContainerRef}
+          className="hidden md:block absolute -right-[128px] lg:-right-[176px] top-40 lg:top-48 w-[320px] lg:w-[440px] origin-top opacity-0 pointer-events-none select-none z-10"
+        >
+          <Image
+            src="/container2.png"
+            alt="Shipping container"
+            width={1672}
+            height={941}
+            className="w-full h-auto"
+            priority
+          />
+        </div>
+        <div
+          ref={leftContainerRef}
+          className="hidden md:block absolute -left-[128px] lg:-left-[168px] top-56 lg:top-64 w-[320px] lg:w-[420px] origin-top opacity-0 pointer-events-none select-none z-10"
+        >
+          <Image
+            src="/container1.png"
+            alt="Shipping container"
+            width={1774}
+            height={887}
+            className="w-full h-auto"
+            priority
+          />
+        </div>
+        <div
+          ref={rightContainer2Ref}
+          className="hidden md:block absolute -right-[120px] lg:-right-[160px] top-[384px] lg:top-[490px] w-[300px] lg:w-[400px] origin-top opacity-0 pointer-events-none select-none"
+        >
+          <Image
+            src="/container4.png"
+            alt="Shipping container"
+            width={1774}
+            height={887}
+            className="w-full h-auto"
+            priority
+          />
+        </div>
+        <div
+          ref={leftContainer2Ref}
+          className="hidden md:block absolute -left-[112px] lg:-left-[152px] top-[424px] lg:top-[516px] w-[280px] lg:w-[380px] origin-top opacity-0 pointer-events-none select-none"
+        >
+          <Image
+            src="/container3.png"
+            alt="Shipping container"
+            width={1672}
+            height={941}
+            className="w-full h-auto"
+            priority
+          />
         </div>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 text-center md:text-left">
-          <motion.div 
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
-            className="max-w-3xl"
+        <div ref={heroTextRef} className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center opacity-0">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-neutral-900 leading-[1.05] tracking-tight mb-6">
+            Precision-Driven Delivery,<br />Anytime, Anywhere
+          </h1>
+
+          <p className="text-lg md:text-xl text-neutral-500 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+            From sourcing to shipment, Bluenture LLP delivers reliable trading and logistics solutions for high-demand commodities, on time, every time.
+          </p>
+
+          <Link
+            href="/commodities"
+            className="inline-flex items-center gap-3 pl-6 pr-2 py-2 bg-neutral-900 hover:bg-neutral-800 text-white font-semibold rounded-full transition-all duration-300 hover:-translate-y-0.5"
           >
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6 shadow-xl">
-              <span className="w-2 h-2 rounded-full bg-primary-400 animate-pulse"></span>
-              <span className="text-xs font-bold tracking-widest text-primary-100 uppercase">Global Trading & Sourcing</span>
-            </motion.div>
-            
-            <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
-              Global Trade, Streamlined.
-            </motion.h1>
-            
-            <motion.p variants={itemVariants} className="text-lg md:text-xl text-primary-100/80 mb-10 max-w-2xl font-light leading-relaxed">
-              Bluenture LLP specializes in reliable procurement, quality assurance, and timely delivery of high-demand commodities across international markets.
-            </motion.p>
-            
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-4">
-              <Link href="/commodities" className="w-full sm:w-auto px-8 py-4 bg-primary-500 hover:bg-primary-400 text-white font-bold rounded-lg shadow-[0_0_30px_rgba(57,166,214,0.3)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,166,214,0.5)] flex items-center justify-center gap-2">
-                Explore Commodities
-                <ArrowRight size={18} />
-              </Link>
-              <Link href="/about" className="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-lg transition-all duration-300 hover:-translate-y-1 flex items-center justify-center">
-                Why Bluenture
-              </Link>
-            </motion.div>
-          </motion.div>
+            Explore Commodities
+            <span className="flex items-center justify-center w-9 h-9 rounded-full bg-primary-500">
+              <ArrowRight size={18} />
+            </span>
+          </Link>
+
+          <p className="mt-14 text-sm font-medium text-neutral-400 tracking-wide">
+            Trusted by 500+ Enterprise Partners Worldwide
+          </p>
         </div>
       </section>
 
       {/* 2. Our Expertise Section - Bento Grid */}
-      <section className="py-24 bg-neutral-50 relative overflow-hidden" aria-label="Our Expertise">
-        {/* Abstract Background Element */}
-        <div className="absolute top-40 right-0 w-96 h-96 bg-primary-100 rounded-full blur-[100px] opacity-60 pointer-events-none"></div>
-        
+      <section className="py-24 md:py-32 bg-neutral-50 relative" aria-label="Our Expertise">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -84,16 +177,16 @@ export default function HomeContent() {
           >
             <div>
               <span className="text-primary-600 font-bold tracking-widest text-sm uppercase mb-3 block">Our Expertise</span>
-              <h2 className="text-4xl md:text-5xl font-black text-neutral-900 tracking-tight leading-tight">
-                Reliable Sourcing for <br/><span className="text-gradient">Global Markets</span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-neutral-900 tracking-tight leading-[1.05]">
+                Reliable Sourcing for<br />Global Markets
               </h2>
             </div>
-            <p className="text-neutral-600 max-w-md mt-6 md:mt-0 text-lg">
+            <p className="text-neutral-500 font-light max-w-md mt-6 md:mt-0 text-lg leading-relaxed">
               We specialize in the reliable procurement and quality assurance of high-demand commodities across international markets.
             </p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -101,73 +194,76 @@ export default function HomeContent() {
             className="grid grid-cols-1 md:grid-cols-3 gap-6"
           >
             {/* Bento Card 1 - Large */}
-            <motion.div variants={itemVariants} className="md:col-span-2 group overflow-hidden rounded-3xl bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col min-h-[380px] border border-neutral-100">
+            <motion.div variants={itemVariants} className="md:col-span-2 group overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[380px]">
               <div className="relative h-56 w-full overflow-hidden bg-neutral-100">
                 <Image src="/images/agricultural_realistic.png" alt="Agricultural Products — grains, pulses, and organic produce for global export" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
-              <div className="p-8 flex-1 flex flex-col justify-start bg-white">
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5 border border-emerald-100 shadow-sm"><Sprout size={24} /></div>
-                <h3 className="text-2xl font-serif font-extrabold text-neutral-900 mb-3">Agricultural Products</h3>
-                <p className="text-neutral-700 font-medium leading-relaxed max-w-lg">Premium grains, pulses, and organic produce sourced directly from certified sustainable farms tailored for global export.</p>
+              <div className="p-8 flex-1 flex flex-col justify-start">
+                <div className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center mb-5"><Sprout size={22} /></div>
+                <h3 className="text-2xl font-black text-neutral-900 tracking-tight mb-3">Agricultural Products</h3>
+                <p className="text-neutral-500 font-light leading-relaxed max-w-lg">Premium grains, pulses, and organic produce sourced directly from certified sustainable farms tailored for global export.</p>
               </div>
             </motion.div>
 
             {/* Bento Card 2 */}
-            <motion.div variants={itemVariants} className="group overflow-hidden rounded-3xl bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col min-h-[380px] border border-neutral-100">
+            <motion.div variants={itemVariants} className="group overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[380px]">
               <div className="relative h-56 w-full overflow-hidden bg-neutral-100">
                 <Image src="/images/food_beverages_realistic.png" alt="Food and beverages — oils, coffee, spices, and gourmet specialties" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
-              <div className="p-8 flex-1 flex flex-col justify-start bg-white">
-                <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-5 border border-amber-100 shadow-sm"><UtensilsCrossed size={24} /></div>
-                <h3 className="text-xl font-serif font-extrabold text-neutral-900 mb-3">Food & Beverages</h3>
-                <p className="text-neutral-700 text-sm font-medium leading-relaxed">High-quality food commodities built for distributors and institutional buyers.</p>
+              <div className="p-8 flex-1 flex flex-col justify-start">
+                <div className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center mb-5"><UtensilsCrossed size={22} /></div>
+                <h3 className="text-xl font-black text-neutral-900 tracking-tight mb-3">Food & Beverages</h3>
+                <p className="text-neutral-500 font-light text-sm leading-relaxed">High-quality food commodities built for distributors and institutional buyers.</p>
               </div>
             </motion.div>
 
             {/* Bento Card 3 */}
-            <motion.div variants={itemVariants} className="group overflow-hidden rounded-3xl bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col min-h-[380px] border border-neutral-100">
+            <motion.div variants={itemVariants} className="group overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[380px]">
               <div className="relative h-56 w-full overflow-hidden bg-neutral-100">
                 <Image src="/images/consumer_goods_realistic.png" alt="Consumer goods — household essentials for retail networks worldwide" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
-              <div className="p-8 flex-1 flex flex-col justify-start bg-white">
-                <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-5 border border-indigo-100 shadow-sm"><Package size={24} /></div>
-                <h3 className="text-xl font-serif font-extrabold text-neutral-900 mb-3">Consumer Goods</h3>
-                <p className="text-neutral-700 text-sm font-medium leading-relaxed">Fast-moving consumer goods and household essentials for retail networks worldwide.</p>
+              <div className="p-8 flex-1 flex flex-col justify-start">
+                <div className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center mb-5"><Package size={22} /></div>
+                <h3 className="text-xl font-black text-neutral-900 tracking-tight mb-3">Consumer Goods</h3>
+                <p className="text-neutral-500 font-light text-sm leading-relaxed">Fast-moving consumer goods and household essentials for retail networks worldwide.</p>
               </div>
             </motion.div>
 
             {/* Bento Card 4 - Large */}
-            <motion.div variants={itemVariants} className="md:col-span-2 group overflow-hidden rounded-3xl bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col min-h-[380px] border border-neutral-100">
+            <motion.div variants={itemVariants} className="md:col-span-2 group overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[380px]">
               <div className="relative h-56 w-full overflow-hidden bg-neutral-100">
                 <Image src="/images/raw_materials_realistic.png" alt="Raw materials — industrial supplies for manufacturing operations" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
-              <div className="p-8 flex-1 flex flex-col justify-start bg-white">
-                <div className="w-12 h-12 rounded-xl bg-slate-50 text-slate-600 flex items-center justify-center mb-5 border border-slate-200 shadow-sm"><Pickaxe size={24} /></div>
-                <h3 className="text-2xl font-serif font-extrabold text-neutral-900 mb-3">Raw Materials</h3>
-                <p className="text-neutral-700 font-medium leading-relaxed max-w-lg">High-grade raw materials supporting robust industrial and manufacturing growth operations across borders.</p>
+              <div className="p-8 flex-1 flex flex-col justify-start">
+                <div className="w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center mb-5"><Pickaxe size={22} /></div>
+                <h3 className="text-2xl font-black text-neutral-900 tracking-tight mb-3">Raw Materials</h3>
+                <p className="text-neutral-500 font-light leading-relaxed max-w-lg">High-grade raw materials supporting robust industrial and manufacturing growth operations across borders.</p>
               </div>
             </motion.div>
-
           </motion.div>
-          
-          {/* Full Width CTA Banner */}
-          <motion.div 
+
+          {/* Full Width CTA Banner — mirrors the hero button: dark surface, pill CTA, blue circular arrow */}
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="w-full mt-8 group relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary-900 via-primary-800 to-indigo-900 shadow-[0_20px_50px_rgba(11,47,91,0.2)] border border-primary-700/50 flex flex-col sm:flex-row items-center justify-between p-10 md:p-12 hover:shadow-2xl transition-all duration-500"
+            transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
+            className="w-full mt-6 relative overflow-hidden rounded-2xl bg-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-6 p-10 md:p-12"
           >
-            <div className="absolute inset-0 bg-[url('/textures/cubes.png')] opacity-10 mix-blend-overlay"></div>
-            <div className="relative z-10 mb-6 sm:mb-0">
-              <h3 className="text-3xl font-black text-white mb-3">Looking for tailored commodities?</h3>
-              <p className="text-primary-100/90 text-lg font-light leading-relaxed max-w-xl">
+            <div className="relative z-10">
+              <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-3">Looking for tailored commodities?</h3>
+              <p className="text-neutral-400 font-light leading-relaxed max-w-xl">
                 Explore our complete catalog and discover how we can optimize your global sourcing and supply chain capabilities.
               </p>
             </div>
-            <Link href="/commodities" className="relative z-10 shrink-0 px-8 py-4 bg-white text-primary-900 font-bold rounded-xl shadow-[0_5px_20px_rgba(255,255,255,0.2)] flex items-center justify-center gap-3 group-hover:bg-neutral-50 group-hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto text-center">
+            <Link
+              href="/commodities"
+              className="relative z-10 shrink-0 inline-flex items-center gap-3 pl-6 pr-2 py-2 bg-white hover:bg-neutral-100 text-neutral-900 font-semibold rounded-full transition-all duration-300 hover:-translate-y-0.5 w-full sm:w-auto justify-center"
+            >
               Explore Catalog
-              <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform" />
+              <span className="flex items-center justify-center w-9 h-9 rounded-full bg-primary-500">
+                <ArrowRight size={18} className="text-white" />
+              </span>
             </Link>
           </motion.div>
         </div>
@@ -260,13 +356,55 @@ export default function HomeContent() {
               <div className="absolute w-[360px] h-[360px] md:w-[500px] md:h-[500px] rounded-full border border-cyan-500/20 m-auto animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite] opacity-20"></div>
 
               <div className="relative w-full max-w-[480px] aspect-square group [mask-image:radial-gradient(circle,white_45%,transparent_72%)]">
-                <div className="absolute inset-0 opacity-90 group-hover:opacity-100 transition-opacity duration-700">
-                  <Image 
-                    src="/images/blue_plexus_globe.png" 
-                    alt="Bluenture global trade network visualization" 
-                    fill 
-                    className="object-contain animate-spin-reverse drop-shadow-[0_0_40px_rgba(34,211,238,0.15)]" 
-                    priority
+                <div className="absolute inset-0 opacity-90 group-hover:opacity-100 transition-opacity duration-700 drop-shadow-[0_0_40px_rgba(34,211,238,0.15)]">
+                  <Globe
+                    markers={[
+                      { id: "mumbai", location: [19.076, 72.8777], label: "Mumbai" },
+                      { id: "dubai", location: [25.2048, 55.2708], label: "Dubai" },
+                      { id: "singapore", location: [1.3521, 103.8198], label: "Singapore" },
+                      { id: "london", location: [51.5074, -0.1278], label: "London" },
+                      { id: "newyork", location: [40.7128, -74.006], label: "New York" },
+                      { id: "shanghai", location: [31.2304, 121.4737], label: "Shanghai" },
+                      { id: "rotterdam", location: [51.9244, 4.4777], label: "Rotterdam" },
+                      { id: "capetown", location: [-33.9249, 18.4241], label: "Cape Town" },
+                      { id: "sydney", location: [-33.8688, 151.2093], label: "Sydney" },
+                      { id: "saopaulo", location: [-23.5505, -46.6333], label: "São Paulo" },
+                      { id: "tokyo", location: [35.6762, 139.6503], label: "Tokyo" },
+                      { id: "istanbul", location: [41.0082, 28.9784], label: "Istanbul" },
+                      { id: "hongkong", location: [22.3193, 114.1694], label: "Hong Kong" },
+                      { id: "losangeles", location: [34.0522, -118.2437], label: "Los Angeles" },
+                      { id: "hamburg", location: [53.5511, 9.9937], label: "Hamburg" },
+                      { id: "lagos", location: [6.5244, 3.3792], label: "Lagos" },
+                      { id: "jakarta", location: [-6.2088, 106.8456], label: "Jakarta" },
+                      { id: "riyadh", location: [24.7136, 46.6753], label: "Riyadh" },
+                    ]}
+                    arcs={[
+                      { id: "mumbai-dubai", from: [19.076, 72.8777], to: [25.2048, 55.2708] },
+                      { id: "mumbai-singapore", from: [19.076, 72.8777], to: [1.3521, 103.8198] },
+                      { id: "dubai-london", from: [25.2048, 55.2708], to: [51.5074, -0.1278] },
+                      { id: "london-newyork", from: [51.5074, -0.1278], to: [40.7128, -74.006] },
+                      { id: "singapore-shanghai", from: [1.3521, 103.8198], to: [31.2304, 121.4737] },
+                      { id: "mumbai-shanghai", from: [19.076, 72.8777], to: [31.2304, 121.4737] },
+                      { id: "london-rotterdam", from: [51.5074, -0.1278], to: [51.9244, 4.4777] },
+                      { id: "dubai-capetown", from: [25.2048, 55.2708], to: [-33.9249, 18.4241] },
+                      { id: "singapore-sydney", from: [1.3521, 103.8198], to: [-33.8688, 151.2093] },
+                      { id: "newyork-saopaulo", from: [40.7128, -74.006], to: [-23.5505, -46.6333] },
+                      { id: "shanghai-tokyo", from: [31.2304, 121.4737], to: [35.6762, 139.6503] },
+                      { id: "dubai-istanbul", from: [25.2048, 55.2708], to: [41.0082, 28.9784] },
+                      { id: "shanghai-hongkong", from: [31.2304, 121.4737], to: [22.3193, 114.1694] },
+                      { id: "newyork-losangeles", from: [40.7128, -74.006], to: [34.0522, -118.2437] },
+                      { id: "rotterdam-hamburg", from: [51.9244, 4.4777], to: [53.5511, 9.9937] },
+                      { id: "dubai-lagos", from: [25.2048, 55.2708], to: [6.5244, 3.3792] },
+                      { id: "singapore-jakarta", from: [1.3521, 103.8198], to: [-6.2088, 106.8456] },
+                      { id: "dubai-riyadh", from: [25.2048, 55.2708], to: [24.7136, 46.6753] },
+                    ]}
+                    baseColor={[0.06, 0.09, 0.16]}
+                    markerColor={[0.13, 0.83, 0.93]}
+                    arcColor={[0.13, 0.83, 0.93]}
+                    glowColor={[0.13, 0.6, 0.93]}
+                    dark={1}
+                    mapBrightness={6}
+                    diffuse={1.2}
                   />
                 </div>
               </div>
@@ -283,8 +421,8 @@ export default function HomeContent() {
           >
             {[
               { 
-                icon: Globe, 
-                title: "Verified Supplier Network", 
+                icon: GlobeIcon,
+                title: "Verified Supplier Network",
                 desc: "Carefully vetted producers and manufacturers ensuring strict adherence to consistent quality and sustainability standards.",
                 gradient: "from-cyan-500/20 to-cyan-600/5"
               },
